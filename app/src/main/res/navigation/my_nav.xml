@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/workoutFragment">
+    app:startDestination="@id/nav_workout_fragment">
 
     <fragment
-        android:id="@+id/workoutFragment"
-        android:name="com.example.gymtracker.WorkoutFragment"
-        android:label="fragment_workout"
-        tools:layout="@layout/fragment_workout" />
+        android:id="@+id/nav_workout_fragment"
+        android:name="com.example.gymtracker.fragment.WorkoutFragment"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_workout" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile_fragment"
+        android:name="com.example.gymtracker.fragment.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+    </fragment>
 </navigation>

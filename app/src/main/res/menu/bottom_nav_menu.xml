@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/workouts"
+        android:id="@+id/nav_workout_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/workouts"
         android:icon="@drawable/icon_log"/>
     <item
-        android:id="@+id/exercises"
+        android:id="@+id/nav_exercise_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/exercises"
         android:icon="@drawable/icon_dumbbell"/>
     <item
-        android:id="@+id/reports"
+        android:id="@+id/nav_report_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/reports"
         android:icon="@drawable/icon_report"/>
     <item
-        android:id="@+id/profile"
+        android:id="@+id/nav_profile_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/profile"
