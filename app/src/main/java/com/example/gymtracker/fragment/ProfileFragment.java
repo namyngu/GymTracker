@@ -18,7 +18,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ProfileFragment extends Fragment {
+
     FragmentProfileBinding binding;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
 
 
     @Override
@@ -31,17 +38,18 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
-
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FirebaseAuth.getInstance().signOut();
+                goToLoginActivity();
             }
         });
+
     }
 
     @Override

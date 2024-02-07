@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        // Display workout fragment when app launches
-        replaceFragment(new WorkoutFragment());
-
         // get firebase auth instance and get current user
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -48,48 +45,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
-
-
-
-        /*
-        // Method to navigate to different fragments in the bottom navbar
-        binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()){
-
-                    case R.id.workoutFragment:
-                        replaceFragment(new WorkoutFragment());
-                        break;
-
-                    case R.id.profileFragment:
-                        replaceFragment(new ProfileFragment());
-                        break;
-
-
-
-
-                }
-
-                return true;
-            }
-        });
-        */
     }
-
-
-
-/*
-    binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FirebaseAuth.getInstance().signOut();
-            goToLoginActivity();
-            finish();
-        }
-    });
-*/
 
     private void goToLoginActivity(){
         Intent intent = new Intent(this, Login.class);

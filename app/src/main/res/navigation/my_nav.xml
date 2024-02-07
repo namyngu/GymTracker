@@ -18,4 +18,16 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile" >
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_exercise_fragment"
+        android:name="com.example.gymtracker.fragment.ExerciseFragment"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" />
+
+    <fragment
+        android:id="@+id/nav_report_fragment"
+        android:name="com.example.gymtracker.fragment.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 </navigation>
