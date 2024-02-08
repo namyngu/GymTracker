@@ -8,15 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.gymtracker.databinding.ActivityLoginBinding;
+import com.example.gymtracker.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
-    private ActivityLoginBinding binding;
+public class RegisterActivity extends AppCompatActivity {
+    private ActivityRegisterBinding binding;
     private FirebaseAuth mAuth;
 
 
@@ -25,11 +25,12 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binding.progressBar.setVisibility(View.VISIBLE);
@@ -41,40 +42,36 @@ public class Login extends AppCompatActivity {
                 // Check if email and password is empty
                 if (email.isEmpty())
                 {
-                    Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.isEmpty())
                 {
-                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                // Sign in with email and password
-                mAuth.signInWithEmailAndPassword(email, password)
+                // Create user
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                binding.progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    //Log.d(TAG, "signInWithEmail:success");
-                                    //FirebaseUser user = mAuth.getCurrentUser();
-                                    //updateUI(user);
+                                    // Log.d(TAG, "createUserWithEmail:success");
+                                    // FirebaseUser user = mAuth.getCurrentUser();
 
-                                    Toast.makeText(Login.this, "Login Successful",
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(RegisterActivity.this, "Register Success",
                                             Toast.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
 
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    // Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(Login.this, "Authentication failed.",
+                                    // Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(RegisterActivity.this, "ERROR: Registration failed",
                                             Toast.LENGTH_SHORT).show();
+
                                 }
                             }
                         });
@@ -85,7 +82,7 @@ public class Login extends AppCompatActivity {
         binding.tvBackToTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TitleScreen.class);
+                Intent intent = new Intent(getApplicationContext(), TitleScreenActivity.class);
                 startActivity(intent);
                 finish();
             }

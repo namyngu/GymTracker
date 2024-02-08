@@ -10,7 +10,7 @@ import com.example.gymtracker.databinding.ActivityTitleScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class TitleScreen extends AppCompatActivity {
+public class TitleScreenActivity extends AppCompatActivity {
     private ActivityTitleScreenBinding binding;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -51,12 +51,12 @@ public class TitleScreen extends AppCompatActivity {
     }
 
     public void goToLoginActivity() {
-        Intent intent = new Intent (getApplicationContext(), Login.class);
+        Intent intent = new Intent (getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 
     public void goToRegisterActivity() {
-        Intent intent = new Intent (getApplicationContext(), Register.class);
+        Intent intent = new Intent (getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
 

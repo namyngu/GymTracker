@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.gymtracker.databinding.ActivityMainBinding;
-import com.example.gymtracker.fragment.WorkoutFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToLoginActivity(){
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

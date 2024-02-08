@@ -11,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gymtracker.Login;
-import com.example.gymtracker.R;
+import com.example.gymtracker.LoginActivity;
 import com.example.gymtracker.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,7 +58,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void goToLoginActivity(){
-        Intent intent = new Intent(getContext(), Login.class);
+        Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
     }
 
