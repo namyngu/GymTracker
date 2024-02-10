@@ -5,13 +5,12 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class UsersWithWorkouts {
+public class UserWithWorkouts {
     @Embedded public User user;
 
     @Relation(
             parentColumn = "userId",
             entityColumn = "userId"
     )
-
     public List<Workout> workouts;
 }

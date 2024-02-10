@@ -5,7 +5,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class WorkoutsWithExerciseLogs {
+public class WorkoutWithExerciseLogs {
     @Embedded public Workout workout;
     @Relation(
             parentColumn = "workoutId",
