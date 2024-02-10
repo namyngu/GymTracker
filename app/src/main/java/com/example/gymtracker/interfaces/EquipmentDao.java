@@ -25,7 +25,7 @@ public interface EquipmentDao {
     public void delete (Equipment equipment);
 
     @Query("SELECT * FROM equipment_table")
-    public LiveData<List<Equipment>> getAllExerciseCategories();
+    public LiveData<List<Equipment>> getAllEquipments();
 
     @Transaction
     @Query("SELECT * FROM exercise_category_table")

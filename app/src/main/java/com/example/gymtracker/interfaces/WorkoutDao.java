@@ -28,6 +28,9 @@ public interface WorkoutDao {
     @Query("SELECT * FROM workout_table ORDER BY workoutId ASC")
     public LiveData<List<Workout>> getAllWorkouts();
 
+    @Query("DELETE FROM workout_table")
+    void deleteAllWorkouts();
+
     @Transaction
     @Query("SELECT * FROM workout_table")
     public LiveData<List<WorkoutWithExerciseLogs>> getWorkoutWithExerciseLogs ();
