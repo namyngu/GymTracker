@@ -3,6 +3,9 @@ package com.example.gymtracker.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "exercise_table")
 public class Exercise {
     @PrimaryKey(autoGenerate = true)
@@ -10,19 +13,16 @@ public class Exercise {
     private String name;
     private String instructions;
     private String muscle;
-    private int equipmentId;
-    private String difficulty;
-    private int categoryId;
+    private String equipment;
+    private String category;
 
-    public Exercise(String name, String instructions, String muscle, int equipmentId, String difficulty, int categoryId) {
+    public Exercise(String name, String instructions, String muscle, String equipment, String category) {
         this.name = name;
         this.instructions = instructions;
         this.muscle = muscle;
-        this.equipmentId = equipmentId;
-        this.difficulty = difficulty;
-        this.categoryId = categoryId;
+        this.equipment = equipment;
+        this.category = category;
     }
-
 
     // Getter methods
     public int getExerciseId() {
@@ -41,16 +41,12 @@ public class Exercise {
         return muscle;
     }
 
-    public int getEquipmentId() {
-        return equipmentId;
+    public String getEquipment() {
+        return equipment;
     }
 
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
     // Setter methods
@@ -60,5 +56,13 @@ public class Exercise {
 
     public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
+    }
+
+    // TODO: delete this method later - used to populate list for testing
+    public static List<Exercise> createExercises() {
+        List<Exercise> exercises = new ArrayList<Exercise>();
+        exercises.add(new Exercise("Squats", "Lift Bar", "Glutes", "Barbell", "other"));
+
+        return exercises;
     }
 }

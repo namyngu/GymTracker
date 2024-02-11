@@ -35,7 +35,7 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
         Exercise currentExercise = exercises.get(position);
         holder.binding.textViewExerciseName.setText(currentExercise.getName());
         //TODO: convert equipment ID to its name or change to String
-        holder.binding.textViewEquipment.setText(currentExercise.getEquipmentId());
+        holder.binding.textViewEquipment.setText(currentExercise.getEquipment());
         holder.binding.textViewMuscle.setText(currentExercise.getMuscle());
     }
 

@@ -17,6 +17,7 @@ import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.viewmodel.ExerciseViewModel;
 import com.example.gymtracker.viewmodel.SharedViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseFragment extends Fragment {
@@ -34,7 +35,10 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        }
+
+        exercises = new ArrayList<Exercise>();
+        exercises = Exercise.createExercises();
+    }
 
 
     @Override
