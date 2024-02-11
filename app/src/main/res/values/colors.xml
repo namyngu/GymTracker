@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="textBoxBackground">#4FBDBDBD</color>
+    <color name="grey">#706E6E</color>
 </resources>

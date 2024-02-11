@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.gymtracker.R;
+import com.example.gymtracker.viewmodel.SharedViewModel;
 
 public class ExerciseFragment extends Fragment {
+    private SharedViewModel viewModel;
 
     public ExerciseFragment() {
         // Required empty public constructor

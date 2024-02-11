@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp"
+    app:layout_goneMarginTop="8dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/text_view_exercise_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:maxLines="1"
+            android:text="Bench Press"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+        <ImageView
+            android:id="@+id/circle_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-1dp"
+            android:layout_toEndOf="@id/text_view_exercise_name"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/circle_divider"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/text_view_equipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/circle_divider"
+            android:maxLines="1"
+            android:text="Barbell"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/text_view_muscle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_exercise_name"
+            android:text="Chest"
+            android:textColor="@color/grey" />
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

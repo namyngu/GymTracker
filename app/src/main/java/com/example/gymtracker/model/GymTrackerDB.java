@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.gymtracker.entity.*;
@@ -19,6 +20,7 @@ import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WeightDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
 
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,19 +29,28 @@ import java.util.concurrent.Executors;
         ExerciseCategory.class, ExerciseCategoryWithExercises.class, ExerciseLog.class,
         ExerciseLogWithSets.class, ExerciseWithExerciseLogs.class, Set.class, User.class,
         UserWithWorkouts.class, Weight.class, Workout.class, WorkoutWithExerciseLogs.class}, version = 1)
+@TypeConverters({TypeConverter.class})
 public abstract class GymTrackerDB extends RoomDatabase {
 
     private static GymTrackerDB instance;
 
     // Later use this to access our Dao
     public abstract DailyStepDao dailyStepDao();
+
     public abstract EquipmentDao equipmentDao();
+
     public abstract ExerciseDao exerciseDao();
+
     public abstract ExerciseCategoryDao exerciseCategoryDao();
+
     public abstract ExerciseLogDao exerciseLogDao();
+
     public abstract SetDao setDao();
+
     public abstract UserDao userDao();
+
     public abstract WeightDao weightDao();
+
     public abstract WorkoutDao workoutDao();
 
     private static final int NUMBER_OF_THREADS = 4;
@@ -50,7 +61,7 @@ public abstract class GymTrackerDB extends RoomDatabase {
     public static synchronized GymTrackerDB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    GymTrackerDB.class, "GymTrackerDatabase")
+                            GymTrackerDB.class, "GymTrackerDatabase")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomDatabaseCallback)
                     .build();

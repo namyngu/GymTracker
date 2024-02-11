@@ -75,7 +75,61 @@ public class GymTrackerRepository {
         allWorkouts = workoutDao.getAllWorkouts();
     }
 
-    public void insert (Workout workout) {
+    public void insert(DailyStep dailyStep) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dailyStepDao.insert(dailyStep);
+            }
+        });
+    }
+
+    public void insert(Equipment equipment) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                equipmentDao.insert(equipment);
+            }
+        });
+    }
+
+    public void insert(Exercise exercise) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseDao.insert(exercise);
+            }
+        });
+    }
+
+    public void insert(ExerciseLog exerciseLog) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseLogDao.insert(exerciseLog);
+            }
+        });
+    }
+
+    public void insert(Set set) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setDao.insert(set);
+            }
+        });
+    }
+
+    public void insert(Weight weight) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                weightDao.insert(weight);
+            }
+        });
+    }
+
+    public void insert(Workout workout) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -84,7 +138,61 @@ public class GymTrackerRepository {
         });
     }
 
-    public void update (Workout workout) {
+    public void update(DailyStep dailyStep) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dailyStepDao.update(dailyStep);
+            }
+        });
+    }
+
+    public void update(Equipment equipment) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                equipmentDao.update(equipment);
+            }
+        });
+    }
+
+    public void update(Exercise exercise) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseDao.update(exercise);
+            }
+        });
+    }
+
+    public void update(ExerciseLog exerciseLog) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseLogDao.update(exerciseLog);
+            }
+        });
+    }
+
+    public void update(Set set) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setDao.update(set);
+            }
+        });
+    }
+
+    public void update(Weight weight) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                weightDao.update(weight);
+            }
+        });
+    }
+
+    public void update(Workout workout) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -93,7 +201,61 @@ public class GymTrackerRepository {
         });
     }
 
-    public void delete (Workout workout) {
+    public void delete(DailyStep dailyStep) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dailyStepDao.delete(dailyStep);
+            }
+        });
+    }
+
+    public void delete(Equipment equipment) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                equipmentDao.delete(equipment);
+            }
+        });
+    }
+
+    public void delete(Exercise exercise) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseDao.delete(exercise);
+            }
+        });
+    }
+
+    public void delete(ExerciseLog exerciseLog) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                exerciseLogDao.delete(exerciseLog);
+            }
+        });
+    }
+
+    public void delete(Set set) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setDao.delete(set);
+            }
+        });
+    }
+
+    public void delete(Weight weight) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                weightDao.delete(weight);
+            }
+        });
+    }
+
+    public void delete(Workout workout) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -102,7 +264,7 @@ public class GymTrackerRepository {
         });
     }
 
-    public void deleteAllWorkouts () {
+    public void deleteAllWorkouts() {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -113,5 +275,9 @@ public class GymTrackerRepository {
 
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;
+    }
+
+    public LiveData<List<Exercise>> getAllExercises() {
+        return allExercises;
     }
 }
