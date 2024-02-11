@@ -14,6 +14,7 @@ public class SharedViewModel extends ViewModel {
 
     // setValue is on the UI thread, postValue is on the background thread
     public void setExercise(Exercise input) {
+
         exercise.setValue(input);
     }
 

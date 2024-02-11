@@ -12,21 +12,26 @@ import com.example.gymtracker.entity.Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SharedViewAdapter extends RecyclerView.Adapter<SharedViewAdapter.SharedViewHolder> {
+public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapter.ExerciseViewHolder> {
 
     private List<Exercise> exercises = new ArrayList<>();
 
+    public ExerciseViewAdapter(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+
     @NonNull
     @Override
-    public SharedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ExerciseItemBinding binding = ExerciseItemBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new SharedViewHolder(binding);
+        return new ExerciseViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SharedViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
         holder.binding.textViewExerciseName.setText(currentExercise.getName());
         //TODO: convert equipment ID to its name or change to String
@@ -39,12 +44,12 @@ public class SharedViewAdapter extends RecyclerView.Adapter<SharedViewAdapter.Sh
         return exercises.size();
     }
 
-    public static class SharedViewHolder extends RecyclerView.ViewHolder {
+    public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
         private ExerciseItemBinding binding;
 
         // Constructor - ExerciseItemBinding binding is the card itself (single item)
-        public SharedViewHolder(ExerciseItemBinding binding) {
+        public ExerciseViewHolder(ExerciseItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

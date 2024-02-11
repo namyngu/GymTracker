@@ -1,4 +1,4 @@
-package com.example.gymtracker.model;
+package com.example.gymtracker.database;
 
 import java.util.Date;
 

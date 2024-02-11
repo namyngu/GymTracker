@@ -5,20 +5,22 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.model.GymTrackerRepository;
+import com.example.gymtracker.repository.ExerciseRepository;
 
 import java.util.List;
 
 public class ExerciseViewModel extends AndroidViewModel {
 
-    private GymTrackerRepository repository;
+    private ExerciseRepository repository;
     private LiveData<List<Exercise>> allExercises;
+    private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
 
     public ExerciseViewModel (@NonNull Application application) {
         super(application);
-        repository = new GymTrackerRepository(application);
+        repository = new ExerciseRepository(application);
         allExercises = repository.getAllExercises();
     }
 
@@ -36,5 +38,10 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
+    }
+
+    // Return LiveData because we don't want to expose the setValue and postvalue to the outside
+    public LiveData<Exercise> getExercise() {
+        return exercise;
     }
 }

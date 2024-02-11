@@ -6,16 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gymtracker.R;
-import com.example.gymtracker.adapters.SharedViewAdapter;
+import com.example.gymtracker.adapters.ExerciseViewAdapter;
 import com.example.gymtracker.databinding.FragmentExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.viewmodel.ExerciseViewModel;
 import com.example.gymtracker.viewmodel.SharedViewModel;
 
 import java.util.List;
@@ -23,12 +22,14 @@ import java.util.List;
 public class ExerciseFragment extends Fragment {
     FragmentExerciseBinding binding;
     private SharedViewModel sharedViewModelModel;
-    private SharedViewAdapter adapter;
+    private ExerciseViewModel exerciseViewModel;
+    private ExerciseViewAdapter adapter;
     private List<Exercise> exercises;
 
     public ExerciseFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,14 +48,14 @@ public class ExerciseFragment extends Fragment {
 
 
         // Attach RecyclerView to adapter
-        adapter = new SharedViewAdapter();
+        adapter = new ExerciseViewAdapter(exercises);
         binding.recyclerView.setAdapter(adapter);
 
 
-        sharedViewModelModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
 
         // We pass getViewLifecycleOwner instead of this, because we want the lifecycle of the fragment view not the fragment instance
-        sharedViewModelModel.getExercise().observe(getViewLifecycleOwner(), new Observer<Exercise>() {
+        exerciseViewModel.getExercise().observe(getViewLifecycleOwner(), new Observer<Exercise>() {
             @Override
             public void onChanged(Exercise exercise) {
 

@@ -1,4 +1,4 @@
-package com.example.gymtracker.model;
+package com.example.gymtracker.repository;
 
 import android.app.Application;
 
@@ -10,18 +10,17 @@ import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.entity.ExerciseCategory;
 import com.example.gymtracker.entity.ExerciseLog;
 import com.example.gymtracker.entity.Set;
-import com.example.gymtracker.entity.User;
 import com.example.gymtracker.entity.Weight;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.interfaces.DailyStepDao;
 import com.example.gymtracker.interfaces.EquipmentDao;
 import com.example.gymtracker.interfaces.ExerciseCategoryDao;
-import com.example.gymtracker.interfaces.ExerciseDao;
 import com.example.gymtracker.interfaces.ExerciseLogDao;
 import com.example.gymtracker.interfaces.SetDao;
 import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WeightDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
+import com.example.gymtracker.database.GymTrackerDB;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class GymTrackerRepository {
 
     private DailyStepDao dailyStepDao;
     private EquipmentDao equipmentDao;
-    private ExerciseDao exerciseDao;
+    //private ExerciseDao exerciseDao;
     private ExerciseCategoryDao exerciseCategoryDao;
     private ExerciseLogDao exerciseLogDao;
     private SetDao setDao;
@@ -56,8 +55,8 @@ public class GymTrackerRepository {
         equipmentDao = db.equipmentDao();
         allEquipments = equipmentDao.getAllEquipments();
 
-        exerciseDao = db.exerciseDao();
-        allExercises = exerciseDao.getAllExercises();
+       // exerciseDao = db.exerciseDao();
+       // allExercises = exerciseDao.getAllExercises();
 
         exerciseCategoryDao = db.exerciseCategoryDao();
         allExerciseCategories = exerciseCategoryDao.getAllExerciseCategories();
@@ -93,14 +92,14 @@ public class GymTrackerRepository {
         });
     }
 
-    public void insert(Exercise exercise) {
-        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                exerciseDao.insert(exercise);
-            }
-        });
-    }
+//    public void insert(Exercise exercise) {
+//        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                exerciseDao.insert(exercise);
+//            }
+//        });
+//    }
 
     public void insert(ExerciseLog exerciseLog) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
@@ -156,14 +155,14 @@ public class GymTrackerRepository {
         });
     }
 
-    public void update(Exercise exercise) {
-        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                exerciseDao.update(exercise);
-            }
-        });
-    }
+//    public void update(Exercise exercise) {
+//        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                exerciseDao.update(exercise);
+//            }
+//        });
+//    }
 
     public void update(ExerciseLog exerciseLog) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
@@ -219,14 +218,14 @@ public class GymTrackerRepository {
         });
     }
 
-    public void delete(Exercise exercise) {
-        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                exerciseDao.delete(exercise);
-            }
-        });
-    }
+//    public void delete(Exercise exercise) {
+//        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                exerciseDao.delete(exercise);
+//            }
+//        });
+//    }
 
     public void delete(ExerciseLog exerciseLog) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
@@ -272,6 +271,15 @@ public class GymTrackerRepository {
             }
         });
     }
+
+//    public CompletableFuture<Exercise> findByIdFuture(final int exerciseId) {
+//        return CompletableFuture.supplyAsync(new Supplier<Exercise>() {
+//            @Override
+//            public Exercise get() {
+//                return exerciseDao.findByID(exerciseId);
+//            }
+//        }, GymTrackerDB.databaseWriteExecutor);
+//    }
 
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;

@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.gymtracker.entity.Workout;
-import com.example.gymtracker.model.GymTrackerRepository;
+import com.example.gymtracker.repository.GymTrackerRepository;
 
 import java.util.List;
 

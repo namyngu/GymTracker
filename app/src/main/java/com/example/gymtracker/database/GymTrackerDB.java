@@ -1,4 +1,4 @@
-package com.example.gymtracker.model;
+package com.example.gymtracker.database;
 
 import android.content.Context;
 
@@ -20,7 +20,6 @@ import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WeightDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
 
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -56,7 +55,7 @@ public abstract class GymTrackerDB extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     // Create single instance of db
-    public static synchronized GymTrackerDB getInstance(Context context) {
+    public static synchronized GymTrackerDB getInstance(final Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             GymTrackerDB.class, "GymTrackerDatabase")

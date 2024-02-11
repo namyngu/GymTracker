@@ -27,4 +27,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise_table")
     public LiveData<List<Exercise>> getAllExercises();
 
+    @Query("SELECT * FROM exercise_table WHERE exerciseId = :exerciseId LIMIT 1")
+    Exercise findByID(int exerciseId);
+
 }
