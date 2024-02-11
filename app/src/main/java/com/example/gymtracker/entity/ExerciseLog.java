@@ -9,9 +9,9 @@ import java.util.Date;
 @Entity(tableName = "exercise_log_table")
 public class ExerciseLog {
     @PrimaryKey(autoGenerate = true)
-    int logId;
-    int workoutId;
-    int exerciseId;
+    private int logId;
+    private int workoutId;
+    private int exerciseId;
 
     // Constructor
     public ExerciseLog(int workoutId, int exerciseId) {
@@ -30,5 +30,18 @@ public class ExerciseLog {
 
     public int getExerciseId() {
         return exerciseId;
+    }
+
+    // Setter methods
+    public void setLogId(int logId) {
+        this.logId = logId;
+    }
+
+    public void setWorkoutId(int workoutId) {
+        this.workoutId = workoutId;
+    }
+
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 }

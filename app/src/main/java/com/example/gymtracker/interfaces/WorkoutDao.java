@@ -31,7 +31,8 @@ public interface WorkoutDao {
     @Query("DELETE FROM workout_table")
     void deleteAllWorkouts();
 
-    @Transaction
-    @Query("SELECT * FROM workout_table")
-    public LiveData<List<WorkoutWithExerciseLogs>> getWorkoutWithExerciseLogs ();
+    //Think this is only needed for many-to-many relationships
+//    @Transaction
+//    @Query("SELECT * FROM workout_table")
+//    public LiveData<List<WorkoutWithExerciseLogs>> getWorkoutWithExerciseLogs ();
 }

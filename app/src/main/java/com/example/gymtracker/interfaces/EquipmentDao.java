@@ -27,7 +27,10 @@ public interface EquipmentDao {
     @Query("SELECT * FROM equipment_table")
     public LiveData<List<Equipment>> getAllEquipments();
 
+    /* Think this is only needed for many-to-many relationships
     @Transaction
     @Query("SELECT * FROM exercise_category_table")
     public LiveData<List<EquipmentWithExercises>> getEquipmentWithExercises();
+
+     */
 }

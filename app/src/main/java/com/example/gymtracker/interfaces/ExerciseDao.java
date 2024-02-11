@@ -27,6 +27,4 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise_table")
     public LiveData<List<Exercise>> getAllExercises();
 
-    @Transaction
-    public LiveData<List<ExerciseWithExerciseLogs>> getAllExerciseWithExerciseLogs();
 }

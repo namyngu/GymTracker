@@ -26,7 +26,8 @@ public interface ExerciseLogDao {
     @Query("SELECT * FROM exercise_log_table ORDER BY workoutId")
     public LiveData<List<ExerciseLog>> getAllExerciseLogs();
 
-    @Transaction
-    @Query("SELECT * FROM exercise_log_table")
-    public LiveData<List<ExerciseLogWithSets>> getAllExerciseLogWithSets();
+    // Think this is only needed for many-to-many relationships
+//    @Transaction
+//    @Query("SELECT * FROM exercise_log_table")
+//    public LiveData<List<ExerciseLogWithSets>> getAllExerciseLogWithSets();
 }

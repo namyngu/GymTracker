@@ -29,7 +29,9 @@ public interface ExerciseCategoryDao {
     @Query("SELECT * FROM exercise_category_table")
     public LiveData<List<ExerciseCategory>> getAllExerciseCategories();
 
+    /* Think this is only needed for many-to-many relationships
     @Transaction
     @Query("SELECT * FROM exercise_category_table")
     public LiveData<List<ExerciseCategoryWithExercises>> getExerciseCategoryWithExercises();
+     */
 }
