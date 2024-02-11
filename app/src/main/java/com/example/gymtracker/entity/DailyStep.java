@@ -1,5 +1,6 @@
 package com.example.gymtracker.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import java.util.Date;
@@ -7,8 +8,11 @@ import java.util.Date;
 @Entity(tableName = "daily_step_table",
         primaryKeys = {"userId", "steps", "date"})
 public class DailyStep {
+    @NonNull
     private String userId;
+    @NonNull
     private int steps;
+    @NonNull
     private Date date;
 
     // Constructor

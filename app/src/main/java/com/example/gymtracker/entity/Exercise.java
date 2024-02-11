@@ -14,7 +14,7 @@ public class Exercise {
     private String difficulty;
     private int categoryId;
 
-    public Exercise(String name, String instructions, String muscle, int equipmentId, String difficulty, int typeId) {
+    public Exercise(String name, String instructions, String muscle, int equipmentId, String difficulty, int categoryId) {
         this.name = name;
         this.instructions = instructions;
         this.muscle = muscle;
@@ -56,5 +56,9 @@ public class Exercise {
     // Setter methods
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 }

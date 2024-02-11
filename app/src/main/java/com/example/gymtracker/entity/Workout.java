@@ -24,7 +24,6 @@ public class Workout {
         this.date = date;
     }
 
-
     // Getter methods
     public int getWorkoutId() {
         return workoutId;
@@ -37,5 +36,18 @@ public class Workout {
 
     public Date getDate() {
         return date;
+    }
+
+    //Setter methods
+    public void setWorkoutId(int workoutId) {
+        this.workoutId = workoutId;
+    }
+
+    public void setUserId(@Nullable String userId) {
+        this.userId = userId;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

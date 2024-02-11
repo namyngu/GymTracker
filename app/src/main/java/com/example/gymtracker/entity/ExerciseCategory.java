@@ -24,6 +24,10 @@ public class ExerciseCategory {
     }
 
     // Setter methods
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public void setCategory(String category) {
         this.category = category;
     }

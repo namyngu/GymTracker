@@ -27,4 +27,8 @@ public class Equipment {
     public void setEquipment(String equipment) {
         this.equipment = equipment;
     }
+
+    public void setEquipmentId(int equipmentId) {
+        this.equipmentId = equipmentId;
+    }
 }

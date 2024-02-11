@@ -48,6 +48,11 @@ public class Set {
     }
 
     // Setter methods
+
+    public void setSetId(int setId) {
+        this.setId = setId;
+    }
+
     public void setReps(int reps) {
         this.reps = reps;
     }

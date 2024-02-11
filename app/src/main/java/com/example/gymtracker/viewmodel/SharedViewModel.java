@@ -13,7 +13,7 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
 
     // setValue is on the UI thread, postValue is on the background thread
-    public void setText(Exercise input) {
+    public void setExercise(Exercise input) {
         exercise.setValue(input);
     }
 

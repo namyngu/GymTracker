@@ -1,5 +1,6 @@
 package com.example.gymtracker.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import java.util.Date;
@@ -7,8 +8,11 @@ import java.util.Date;
 @Entity(tableName = "weight_table",
         primaryKeys = {"userId", "weight", "date"})
 public class Weight {
+    @NonNull
     private String userId;
+    @NonNull
     private float weight;
+    @NonNull
     private Date date;
 
     // Constructor

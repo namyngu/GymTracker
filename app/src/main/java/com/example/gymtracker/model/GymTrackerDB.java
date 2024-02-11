@@ -25,10 +25,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {DailyStep.class, Equipment.class, EquipmentWithExercises.class, Exercise.class,
-        ExerciseCategory.class, ExerciseCategoryWithExercises.class, ExerciseLog.class,
-        ExerciseLogWithSets.class, ExerciseWithExerciseLogs.class, Set.class, User.class,
-        UserWithWorkouts.class, Weight.class, Workout.class, WorkoutWithExerciseLogs.class}, version = 1)
+@Database(entities = {DailyStep.class, Equipment.class, Exercise.class, ExerciseCategory.class,
+        ExerciseLog.class,Set.class, User.class, Weight.class, Workout.class}, version = 1)
 @TypeConverters({TypeConverter.class})
 public abstract class GymTrackerDB extends RoomDatabase {
 
