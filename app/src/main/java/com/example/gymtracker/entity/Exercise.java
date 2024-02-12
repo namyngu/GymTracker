@@ -62,6 +62,7 @@ public class Exercise {
     public static List<Exercise> createExercises() {
         List<Exercise> exercises = new ArrayList<Exercise>();
         exercises.add(new Exercise("Squats", "Lift Bar", "Glutes", "Barbell", "other"));
+        exercises.add(new Exercise("Bench Press", "Lift Bar", "Chest", "Barbell", "other"));
 
         return exercises;
     }

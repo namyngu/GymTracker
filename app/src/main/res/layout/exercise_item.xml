@@ -52,8 +52,4 @@
             android:text="Chest"
             android:textColor="@color/grey" />
     </RelativeLayout>
-
-
-
-
 </androidx.cardview.widget.CardView>

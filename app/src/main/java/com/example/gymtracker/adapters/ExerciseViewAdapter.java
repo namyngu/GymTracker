@@ -20,7 +20,7 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
         this.exercises = exercises;
     }
 
-
+    // ViewHolder contains the layout for each item in the list
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,9 +41,11 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
 
     @Override
     public int getItemCount() {
+
         return exercises.size();
     }
 
+    // Remember the ViewHolder class holds each item in the RecyclerView
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
         private ExerciseItemBinding binding;

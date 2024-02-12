@@ -56,13 +56,15 @@ public class ExerciseFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
 
 
-        exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
 
-        // We pass getViewLifecycleOwner instead of this, because we want the lifecycle of the fragment view not the fragment instance
+        // Setting up LiveData
+        exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
+        // We pass getViewLifecycleOwner instead of "this", because we want the lifecycle of the fragment view, not the fragment instance
         exerciseViewModel.getExercise().observe(getViewLifecycleOwner(), new Observer<Exercise>() {
             @Override
             public void onChanged(Exercise exercise) {
-
+                // Update LiveData in response to changes from other fragments
+                // Requires setting up SharedViewModel & SharedViewAdapter
             }
         });
 
