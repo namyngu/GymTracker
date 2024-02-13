@@ -15,11 +15,13 @@ import java.util.List;
 public class Workout {
     @PrimaryKey(autoGenerate = true)
     private int workoutId;
+    private String name;
     @Nullable
     private String userId;
     private Date date;
 
-    public Workout(@Nullable String userId, Date date) {
+    public Workout(String name, @Nullable String userId, Date date) {
+        this.name = name;
         this.userId = userId;
         this.date = date;
     }
@@ -27,6 +29,10 @@ public class Workout {
     // Getter methods
     public int getWorkoutId() {
         return workoutId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Nullable
@@ -39,8 +45,13 @@ public class Workout {
     }
 
     //Setter methods
+
     public void setWorkoutId(int workoutId) {
         this.workoutId = workoutId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setUserId(@Nullable String userId) {

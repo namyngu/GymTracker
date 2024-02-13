@@ -6,4 +6,5 @@
     <color name="textBoxBackground">#4FBDBDBD</color>
     <color name="grey">#706E6E</color>
     <color name="lightgrey">#A6A6A6</color>
+    <color name="brightblue">#002AFF</color>
 </resources>

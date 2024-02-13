@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -48,15 +49,20 @@ public class ExerciseFragment extends Fragment {
         binding = FragmentExerciseBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // set layout manager
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        // Floating action button click event
+        binding.navAddExerciseFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+
+        // set layout manager for recycler view
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Attach RecyclerView to adapter
         adapter = new ExerciseViewAdapter(exercises);
         binding.recyclerView.setAdapter(adapter);
-
-
 
 
         // Setting up LiveData

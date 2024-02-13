@@ -23,11 +23,25 @@
         android:id="@+id/nav_exercise_fragment"
         android:name="com.example.gymtracker.fragment.ExerciseFragment"
         android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_exercise" >
+        <action
+            android:id="@+id/navigate_to_addExerciseFragment"
+            app:destination="@id/nav_add_exercise_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_report_fragment"
         android:name="com.example.gymtracker.fragment.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+
+    <fragment
+        android:id="@+id/nav_add_exercise_fragment"
+        android:name="com.example.gymtracker.fragment.AddExerciseFragment"
+        android:label="fragment_add_exercise"
+        tools:layout="@layout/fragment_add_exercise" >
+        <action
+            android:id="@+id/action_addExerciseFragment_to_nav_exercise_fragment"
+            app:destination="@id/nav_exercise_fragment" />
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.gymtracker.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class Exercise {
     private String category;
 
 
+    @Ignore
     // Constructors
     public Exercise(String name, String notes, String muscle, String equipment) {
         this.name = name;
         this.notes = notes;
         this.muscle = muscle;
         this.equipment = equipment;
+        this.category = "Other";
     }
 
     public Exercise(String name, String notes, String muscle, String equipment, String category) {

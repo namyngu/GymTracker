@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gymtracker.databinding.ExerciseItemBinding;
+import com.example.gymtracker.databinding.ItemExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ExerciseItemBinding binding = ExerciseItemBinding
+        ItemExerciseBinding binding = ItemExerciseBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
         return new ExerciseViewHolder(binding);
@@ -48,10 +48,10 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     // Remember the ViewHolder class holds each item in the RecyclerView
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
-        private ExerciseItemBinding binding;
+        private ItemExerciseBinding binding;
 
         // Constructor - ExerciseItemBinding binding is the card itself (single item)
-        public ExerciseViewHolder(ExerciseItemBinding binding) {
+        public ExerciseViewHolder(ItemExerciseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
