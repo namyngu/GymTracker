@@ -1,5 +1,6 @@
 package com.example.gymtracker.fragment;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -54,6 +55,7 @@ public class ExerciseFragment extends Fragment {
         // Attach RecyclerView to adapter
         adapter = new ExerciseViewAdapter(exercises);
         binding.recyclerView.setAdapter(adapter);
+
 
 
 

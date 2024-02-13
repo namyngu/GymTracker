@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
+
         // if user doesn't exist return to login screen otherwise display user email.
         if (user == null) {
             goToLoginActivity();

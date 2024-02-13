@@ -11,14 +11,23 @@ public class Exercise {
     @PrimaryKey(autoGenerate = true)
     private int exerciseId;
     private String name;
-    private String instructions;
+    private String notes;
     private String muscle;
     private String equipment;
     private String category;
 
-    public Exercise(String name, String instructions, String muscle, String equipment, String category) {
+
+    // Constructors
+    public Exercise(String name, String notes, String muscle, String equipment) {
         this.name = name;
-        this.instructions = instructions;
+        this.notes = notes;
+        this.muscle = muscle;
+        this.equipment = equipment;
+    }
+
+    public Exercise(String name, String notes, String muscle, String equipment, String category) {
+        this.name = name;
+        this.notes = notes;
         this.muscle = muscle;
         this.equipment = equipment;
         this.category = category;
@@ -33,8 +42,8 @@ public class Exercise {
         return name;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getNotes() {
+        return notes;
     }
 
     public String getMuscle() {
@@ -50,8 +59,8 @@ public class Exercise {
     }
 
     // Setter methods
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public void setExerciseId(int exerciseId) {
