@@ -16,6 +16,7 @@ public class Exercise {
     private String muscle;
     private String equipment;
     private String category;
+    private boolean visibility;
 
 
     @Ignore
@@ -26,6 +27,7 @@ public class Exercise {
         this.muscle = muscle;
         this.equipment = equipment;
         this.category = "Other";
+        this.visibility = true;
     }
 
     public Exercise(String name, String notes, String muscle, String equipment, String category) {
@@ -34,6 +36,7 @@ public class Exercise {
         this.muscle = muscle;
         this.equipment = equipment;
         this.category = category;
+        this.visibility = true;
     }
 
     // Getter methods
@@ -61,7 +64,15 @@ public class Exercise {
         return category;
     }
 
+    public boolean getVisibility() {
+        return visibility;
+    }
+
     // Setter methods
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
     public void setNotes(String notes) {
         this.notes = notes;
     }

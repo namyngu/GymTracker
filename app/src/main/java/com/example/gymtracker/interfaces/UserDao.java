@@ -24,11 +24,7 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
-    @Query("SELECT * FROM user_table ORDER BY userId ASC")
-    public List<User> getAllUsers();
+    @Query("SELECT * FROM user_table WHERE userId = :userId LIMIT 1")
+    public User findById(String userId);
 
-    // Think this is only needed for many-to-many relationships
-//    @Transaction
-//    @Query("SELECT * FROM user_table")
-//    public List<UserWithWorkouts> getUserWithWorkouts();
 }

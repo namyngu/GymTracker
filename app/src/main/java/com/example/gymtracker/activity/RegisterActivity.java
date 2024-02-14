@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.gymtracker.databinding.ActivityRegisterBinding;
+import com.example.gymtracker.entity.User;
+import com.example.gymtracker.viewmodel.RegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -59,8 +62,19 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    // Log.d(TAG, "createUserWithEmail:success");
-                                    // FirebaseUser user = mAuth.getCurrentUser();
+                                    Log.d("Details: ", "createUserWithEmail:success");
+
+                                    // Add user to Room database
+                                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                                    RegisterViewModel viewModel = new RegisterViewModel(getApplication());
+
+                                    //Create user object
+                                    User user = new User(currentUser.getUid(),
+                                            binding.tiDisplayName.toString().trim(),
+                                            Integer.parseInt(binding.tiAge.toString().trim()),
+                                            "operator");
+                                    // Add user to database
+                                    viewModel.insert(user);
 
                                     binding.progressBar.setVisibility(View.GONE);
                                     Toast.makeText(RegisterActivity.this, "Register Success",

@@ -1,6 +1,7 @@
 package com.example.gymtracker.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -55,11 +56,26 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
         private ItemExerciseBinding binding;
+        public View view;
+        public Exercise currentExercise;
 
         // Constructor - ExerciseItemBinding binding is the card itself (single item)
         public ExerciseViewHolder(ItemExerciseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        // Handle click events for every card
+        public ExerciseViewHolder(View v) {
+            super(v);
+            view = v;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // item is clicked
+                    //TODO: navigate to an exercise page to update exercises and delete them.
+                }
+            });
         }
     }
 

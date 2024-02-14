@@ -56,4 +56,6 @@
             android:text="Chest"
             android:textColor="@color/grey" />
     </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>
