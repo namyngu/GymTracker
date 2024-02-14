@@ -9,13 +9,13 @@ import com.example.gymtracker.interfaces.UserDao;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class UserRepository {
+public class ProfileRepository {
 
     private UserDao userDao;
     private User user;
 
     // Constructor
-    public UserRepository(Application application) {
+    public ProfileRepository(Application application) {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         userDao = db.userDao();

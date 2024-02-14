@@ -6,19 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.gymtracker.entity.User;
-import com.example.gymtracker.repository.UserRepository;
+import com.example.gymtracker.repository.ProfileRepository;
 
 import java.util.concurrent.CompletableFuture;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private UserRepository userRepo;
+    private ProfileRepository userRepo;
     private User user;
     private String userId;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
-        userRepo = new UserRepository(application);
+        userRepo = new ProfileRepository(application);
     }
 
     public CompletableFuture<User> findByIdFuture(final String userId) {

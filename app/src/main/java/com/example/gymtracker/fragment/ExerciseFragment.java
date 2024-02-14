@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -26,6 +27,7 @@ import com.example.gymtracker.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExerciseFragment extends Fragment {
     FragmentExerciseBinding binding;
@@ -53,6 +55,11 @@ public class ExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentExerciseBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        // Change actionbar Title
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        assert activity != null;
+        Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Your Exercises");
 
         // Floating action button click event
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {

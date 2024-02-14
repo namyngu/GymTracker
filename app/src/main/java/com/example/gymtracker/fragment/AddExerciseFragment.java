@@ -23,6 +23,8 @@ import com.example.gymtracker.databinding.FragmentAddExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.viewmodel.ExerciseViewModel;
 
+import java.util.Objects;
+
 public class AddExerciseFragment extends Fragment {
     FragmentAddExerciseBinding binding;
     ExerciseViewModel exerciseViewModel;
@@ -213,7 +215,8 @@ public class AddExerciseFragment extends Fragment {
 
         // Show X in the top left corner and change title name
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        assert activity != null;
+        Objects.requireNonNull(activity.getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close);
         activity.getSupportActionBar().setTitle("Add Exercise");
 
         return binding.getRoot();

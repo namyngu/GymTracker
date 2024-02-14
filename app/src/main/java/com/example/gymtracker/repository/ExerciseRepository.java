@@ -16,7 +16,6 @@ public class ExerciseRepository {
 
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allExercises;
-    private Exercise exericse;
 
     // Constructor
     public ExerciseRepository(Application application) {

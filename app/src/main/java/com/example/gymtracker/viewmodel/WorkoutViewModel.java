@@ -6,34 +6,43 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.gymtracker.entity.User;
 import com.example.gymtracker.entity.Workout;
-import com.example.gymtracker.repository.GymTrackerRepository;
+import com.example.gymtracker.repository.WorkoutRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class WorkoutViewModel extends AndroidViewModel {
-    private GymTrackerRepository repository;
+    String userId;
+    private WorkoutRepository workoutRepo;
     private LiveData<List<Workout>> allWorkouts;
 
-    public WorkoutViewModel (@NonNull Application application) {
+    public WorkoutViewModel (@NonNull Application application, String userId) {
         super(application);
-        repository = new GymTrackerRepository(application);
-        allWorkouts = repository.getAllWorkouts();
+        workoutRepo = new WorkoutRepository(application, userId);
+        allWorkouts = workoutRepo.getAllWorkouts(userId);
     }
 
-    public void insert(Workout workout) {
-        repository.insert(workout);
-    }
-
-    public void update(Workout workout) {
-        repository.update(workout);
-    }
-
-    public void delete(Workout workout) {
-        repository.delete(workout);
+    public CompletableFuture<Workout> findByIdFuture(final int workoutId) {
+        return workoutRepo.findByIdFuture(workoutId);
     }
 
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;
     }
+
+    public void insert(Workout workout) {
+        workoutRepo.insert(workout);
+    }
+
+    public void update(Workout workout) {
+        workoutRepo.update(workout);
+    }
+
+    public void delete(Workout workout) {
+        workoutRepo.delete(workout);
+    }
+
+
 }

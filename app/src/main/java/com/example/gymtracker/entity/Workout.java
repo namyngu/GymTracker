@@ -16,7 +16,7 @@ public class Workout {
     @PrimaryKey(autoGenerate = true)
     private int workoutId;
     private String name;
-    @Nullable
+
     private String userId;
     private Date date;
 

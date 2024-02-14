@@ -25,7 +25,7 @@ public class ExerciseViewModel extends AndroidViewModel {
         allExercises = eRepository.getAllExercises();
     }
 
-    public CompletableFuture findByIDFuture(final int exerciseId) {
+    public CompletableFuture<Exercise> findByIDFuture(final int exerciseId) {
         return eRepository.findByIdFuture(exerciseId);
     }
 

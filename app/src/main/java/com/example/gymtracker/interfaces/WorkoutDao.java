@@ -25,14 +25,14 @@ public interface WorkoutDao {
     @Delete
     public void delete(Workout workout);
 
-    @Query("SELECT * FROM workout_table ORDER BY workoutId ASC")
-    public LiveData<List<Workout>> getAllWorkouts();
+    @Query("SELECT * FROM workout_table WHERE userId = :userId")
+    public LiveData<List<Workout>> getAllWorkouts(String userId);
+
+    @Query("SELECT * FROM workout_table WHERE workoutId =:workoutId")
+    Workout findById(int workoutId);
 
     @Query("DELETE FROM workout_table")
     void deleteAllWorkouts();
 
-    //Think this is only needed for many-to-many relationships
-//    @Transaction
-//    @Query("SELECT * FROM workout_table")
-//    public LiveData<List<WorkoutWithExerciseLogs>> getWorkoutWithExerciseLogs ();
+
 }
