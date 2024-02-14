@@ -13,13 +13,15 @@ public class User {
     private String userId;
     private String displayName;
     private int age;
+    private double weight;
     private String userGroup;
 
     // Constructor
-    public User(String userId, String displayName, int age, String userGroup) {
+    public User(String userId, String displayName, int age, double weight, String userGroup) {
         this.userId = userId;
         this.displayName = displayName;
         this.age = age;
+        this.weight = weight;
         this.userGroup = userGroup;
     }
 
@@ -35,6 +37,9 @@ public class User {
     public int getAge() {
         return age;
     }
+    public double getWeight() {
+        return weight;
+    }
 
     public String getUserGroup() {
         return userGroup;
@@ -47,6 +52,10 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public void setUserGroup(String userGroup) {

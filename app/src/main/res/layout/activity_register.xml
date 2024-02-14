@@ -67,7 +67,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiDOB"
+                android:id="@+id/tiWeight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/weight_kg"

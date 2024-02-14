@@ -2,6 +2,7 @@ package com.example.gymtracker.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,14 +34,19 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        RegisterViewModel viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binding.progressBar.setVisibility(View.VISIBLE);
 
-                String email, password;
+                String email, password, ageStr, weightstr;
+                int age, weight;
                 email = String.valueOf(binding.email.getText());
                 password = String.valueOf(binding.password.getText());
+                ageStr = binding.tiAge.getText().toString();
+                weightstr = binding.tiWeight.getText().toString();
 
                 // Check if email and password is empty
                 if (email.isEmpty())
@@ -55,6 +61,24 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (ageStr.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this, "Enter age", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    age = Integer.parseInt(ageStr);
+                }
+
+                if (weightstr.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this, "Enter weight", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    weight = Integer.parseInt(weightstr);
+                }
+
                 // Create user
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -66,12 +90,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                                     // Add user to Room database
                                     FirebaseUser currentUser = mAuth.getCurrentUser();
-                                    RegisterViewModel viewModel = new RegisterViewModel(getApplication());
 
                                     //Create user object
                                     User user = new User(currentUser.getUid(),
-                                            binding.tiDisplayName.toString().trim(),
-                                            Integer.parseInt(binding.tiAge.toString().trim()),
+                                            binding.tiDisplayName.getText().toString().trim(),
+                                            age,
+                                            weight,
                                             "operator");
                                     // Add user to database
                                     viewModel.insert(user);

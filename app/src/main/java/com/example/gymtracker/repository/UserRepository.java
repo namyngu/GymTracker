@@ -3,20 +3,19 @@ package com.example.gymtracker.repository;
 import android.app.Application;
 
 import com.example.gymtracker.database.GymTrackerDB;
-import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.interfaces.UserDao;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class UserRepo {
+public class UserRepository {
 
     private UserDao userDao;
     private User user;
 
     // Constructor
-    public UserRepo(Application application) {
+    public UserRepository(Application application) {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         userDao = db.userDao();

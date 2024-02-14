@@ -19,44 +19,21 @@
     <string name="select_muscle_group">Select muscle group</string>
 
     <string-array name="muscles_array">
-        <item>abdominals</item>
-        <item>abductors</item>
-        <item>biceps</item>
-        <item>calves</item>
-        <item>chest</item>
-        <item>forearms</item>
-        <item>glutes</item>
-        <item>hamstrings</item>
-        <item>lats</item>
-        <item>lower back</item>
-        <item>middle back</item>
-        <item>neck</item>
-        <item>quadriceps</item>
-        <item>traps</item>
-        <item>triceps</item>
-        <item>other</item>
+        <item>Abdominals</item>
+        <item>Abductors</item>
+        <item>Biceps</item>
+        <item>Calves</item>
+        <item>Chest</item>
+        <item>Forearms</item>
+        <item>Glutes</item>
+        <item>Hamstrings</item>
+        <item>Lats</item>
+        <item>Lower Back</item>
+        <item>Middle Back</item>
+        <item>Neck</item>
+        <item>Quadriceps</item>
+        <item>Traps</item>
+        <item>Triceps</item>
+        <item>Other</item>
     </string-array>
-
-    <string-array name="equipment_array">
-        <item>abdominals</item>
-        <item>abductors</item>
-        <item>biceps</item>
-        <item>calves</item>
-        <item>chest</item>
-        <item>forearms</item>
-        <item>glutes</item>
-        <item>hamstrings</item>
-        <item>lats</item>
-        <item>lower back</item>
-        <item>middle back</item>
-        <item>neck</item>
-        <item>quadriceps</item>
-        <item>traps</item>
-        <item>triceps</item>
-        <item>other</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>

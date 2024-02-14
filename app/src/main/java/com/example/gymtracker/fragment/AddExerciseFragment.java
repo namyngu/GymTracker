@@ -57,7 +57,7 @@ public class AddExerciseFragment extends Fragment {
 
         // Check other radio button by default
         binding.radioGroupEquipment.check(R.id.radio_button_other);
-        // Handle Click events of Radio Buttons
+        // Handle Click events of Radio Buttons - RadioGroup doesn't work unless radio buttons are a direct child of it.
         binding.radioButtonBarbell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
