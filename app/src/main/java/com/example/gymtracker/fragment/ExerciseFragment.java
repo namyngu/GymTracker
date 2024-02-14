@@ -31,7 +31,6 @@ import java.util.Objects;
 
 public class ExerciseFragment extends Fragment {
     FragmentExerciseBinding binding;
-    private SharedViewModel sharedViewModelModel;
     private ExerciseViewModel exerciseViewModel;
     private ExerciseViewAdapter adapter;
     private LiveData<List<Exercise>> allExercises;
@@ -48,8 +47,6 @@ public class ExerciseFragment extends Fragment {
 
 
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +79,7 @@ public class ExerciseFragment extends Fragment {
 
 
         // We pass getViewLifecycleOwner instead of "this", because we want the lifecycle of the fragment view, not the fragment instance
-        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+        allExercises.observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable final List<Exercise> exercises) {
                 // Update LiveData in response to changes from other fragments

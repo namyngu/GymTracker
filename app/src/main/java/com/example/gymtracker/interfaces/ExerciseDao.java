@@ -9,7 +9,6 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.ExerciseWithExerciseLogs;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.example.gymtracker.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -7,10 +8,10 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity(tableName = "exercise_log_table")
+@Entity(tableName = "exercise_log_table",
+        primaryKeys = {"workoutId", "exerciseId"})
 public class ExerciseLog {
-    @PrimaryKey(autoGenerate = true)
-    private int logId;
+
     private int workoutId;
     private int exerciseId;
 
@@ -21,9 +22,6 @@ public class ExerciseLog {
     }
 
     // Getter methods
-    public int getLogId() {
-        return logId;
-    }
 
     public int getWorkoutId() {
         return workoutId;
@@ -34,9 +32,6 @@ public class ExerciseLog {
     }
 
     // Setter methods
-    public void setLogId(int logId) {
-        this.logId = logId;
-    }
 
     public void setWorkoutId(int workoutId) {
         this.workoutId = workoutId;

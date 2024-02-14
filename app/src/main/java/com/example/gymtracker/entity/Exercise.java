@@ -80,13 +80,4 @@ public class Exercise {
     public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
     }
-
-    // TODO: delete this method later - used to populate list for testing
-    public static List<Exercise> createExercises() {
-        List<Exercise> exercises = new ArrayList<Exercise>();
-        exercises.add(new Exercise("Squats", "Lift Bar", "Glutes", "Barbell", "other"));
-        exercises.add(new Exercise("Bench Press", "Lift Bar", "Chest", "Barbell", "other"));
-
-        return exercises;
-    }
 }

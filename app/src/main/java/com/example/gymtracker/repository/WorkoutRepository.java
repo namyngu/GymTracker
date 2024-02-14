@@ -6,11 +6,14 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.gymtracker.database.GymTrackerDB;
+import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.entity.Workout;
+import com.example.gymtracker.entity.WorkoutWithExercises;
 import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -47,6 +50,20 @@ public class WorkoutRepository {
             Log.e("WorkoutRepository", "Couldn't find any workouts");
         }
         return allWorkouts;
+    }
+
+    // Get all the exercises for a given workout
+    // TODO: TEST THIS If WORKS
+    public List<Exercise> getExercisesFromWorkout(Workout workout) {
+
+        List<WorkoutWithExercises> tmpData = workoutDao.getWorkoutWithExercises(workout.getWorkoutId());
+
+        List<Exercise> exercises = new ArrayList<>();
+        for (WorkoutWithExercises tmp : tmpData) {
+            exercises.addAll(tmp.getExercises());
+        }
+
+        return exercises;
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {

@@ -37,11 +37,11 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
         return new ExerciseViewHolder(binding);
     }
 
+    // Bind data to view
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
         holder.binding.textViewExerciseName.setText(currentExercise.getName());
-        //TODO: convert equipment ID to its name or change to String
         holder.binding.textViewEquipment.setText(currentExercise.getEquipment());
         holder.binding.textViewMuscle.setText(currentExercise.getMuscle());
     }
