@@ -10,6 +10,9 @@
         android:name="com.example.gymtracker.fragment.WorkoutFragment"
         android:label="Workouts"
         tools:layout="@layout/fragment_workout" >
+        <action
+            android:id="@+id/action_nav_workout_fragment_to_nav_training_fragment"
+            app:destination="@id/nav_training_fragment" />
     </fragment>
 
     <fragment
@@ -41,7 +44,16 @@
         android:label="fragment_add_exercise"
         tools:layout="@layout/fragment_add_exercise" >
         <action
-            android:id="@+id/action_addExerciseFragment_to_nav_exercise_fragment"
+            android:id="@+id/navigate_to_exercise_fragment"
             app:destination="@id/nav_exercise_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_training_fragment"
+        android:name="com.example.gymtracker.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training" >
+        <action
+            android:id="@+id/action_trainingFragment_to_nav_workout_fragment"
+            app:destination="@id/nav_workout_fragment" />
     </fragment>
 </navigation>

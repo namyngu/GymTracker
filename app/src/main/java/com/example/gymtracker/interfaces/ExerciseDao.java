@@ -24,10 +24,13 @@ public interface ExerciseDao {
     @Delete
     public void delete(Exercise exercise);
 
-    @Query("SELECT * FROM exercise_table")
+    @Query("SELECT * FROM exercise_table ORDER BY name ASC")
     public LiveData<List<Exercise>> getAllExercises();
 
     @Query("SELECT * FROM exercise_table WHERE exerciseId = :exerciseId LIMIT 1")
     Exercise findByID(int exerciseId);
+
+    @Query("DELETE FROM exercise_table")
+    void deleteAllExercises();
 
 }

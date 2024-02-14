@@ -30,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-//        // get firebase auth instance and get current user
-//        auth = FirebaseAuth.getInstance();
-//        user = auth.getCurrentUser();
-//
-//
-//        // if user doesn't exist return to login screen otherwise display user email.
-//        if (user == null) {
-//            goToLoginActivity();
-//            finish();
-//        }
+        // get firebase auth instance and get current user
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+
+        // if user doesn't exist return to login screen otherwise display user email.
+        if (user == null) {
+            goToLoginActivity();
+            finish();
+        }
 
         // Setup NavHost and NavController for bottom navigation bar
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);

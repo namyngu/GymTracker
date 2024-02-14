@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymtracker.databinding.ItemExerciseBinding;
@@ -16,9 +17,14 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
 
     private List<Exercise> exercises = new ArrayList<>();
 
+    public ExerciseViewAdapter() {
+
+    }
+
     public ExerciseViewAdapter(List<Exercise> exercises) {
         this.exercises = exercises;
     }
+
 
     // ViewHolder contains the layout for each item in the list
     @NonNull
@@ -55,5 +61,10 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+        notifyDataSetChanged();
     }
 }

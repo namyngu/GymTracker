@@ -3,7 +3,11 @@ package com.example.gymtracker.fragment;
 import android.app.ActionBar;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -13,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gymtracker.R;
 import com.example.gymtracker.adapters.ExerciseViewAdapter;
 import com.example.gymtracker.databinding.FragmentExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
@@ -27,7 +32,8 @@ public class ExerciseFragment extends Fragment {
     private SharedViewModel sharedViewModelModel;
     private ExerciseViewModel exerciseViewModel;
     private ExerciseViewAdapter adapter;
-    private List<Exercise> exercises;
+    private LiveData<List<Exercise>> allExercises;
+    private List<Exercise> exerciseList;
 
     public ExerciseFragment() {
         // Required empty public constructor
@@ -38,8 +44,7 @@ public class ExerciseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        exercises = new ArrayList<Exercise>();
-        exercises = Exercise.createExercises();
+
     }
 
 
@@ -50,29 +55,35 @@ public class ExerciseFragment extends Fragment {
         View view = binding.getRoot();
 
         // Floating action button click event
-        binding.navAddExerciseFragment.setOnClickListener(new View.OnClickListener() {
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).navigate(R.id.navigate_to_addExerciseFragment);
             }
         });
+
+        // Initialize view model
+        exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
+        allExercises = exerciseViewModel.getAllExercises();
 
         // set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Attach RecyclerView to adapter
-        adapter = new ExerciseViewAdapter(exercises);
+        adapter = new ExerciseViewAdapter();
         binding.recyclerView.setAdapter(adapter);
 
 
-        // Setting up LiveData
-        exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
         // We pass getViewLifecycleOwner instead of "this", because we want the lifecycle of the fragment view, not the fragment instance
-        exerciseViewModel.getExercise().observe(getViewLifecycleOwner(), new Observer<Exercise>() {
+        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
-            public void onChanged(Exercise exercise) {
+            public void onChanged(@Nullable final List<Exercise> exercises) {
                 // Update LiveData in response to changes from other fragments
                 // Requires setting up SharedViewModel & SharedViewAdapter
+
+                // Update RecyclerView adapter and display it again.
+                adapter.setExercises(exercises);
+
             }
         });
 

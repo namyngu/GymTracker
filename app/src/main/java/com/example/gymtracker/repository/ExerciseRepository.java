@@ -16,14 +16,14 @@ public class ExerciseRepository {
 
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allExercises;
+    private Exercise exericse;
 
     // Constructor
     public ExerciseRepository(Application application) {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
-
         exerciseDao = db.exerciseDao();
-        exerciseDao.getAllExercises();
+        allExercises = exerciseDao.getAllExercises();
     }
 
     public void insert(Exercise exercise) {

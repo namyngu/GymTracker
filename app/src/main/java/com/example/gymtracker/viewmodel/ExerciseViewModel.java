@@ -11,29 +11,22 @@ import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.repository.ExerciseRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ExerciseViewModel extends AndroidViewModel {
 
-    private ExerciseRepository repository;
+    private ExerciseRepository eRepository;
     private LiveData<List<Exercise>> allExercises;
     private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
 
     public ExerciseViewModel (@NonNull Application application) {
         super(application);
-        repository = new ExerciseRepository(application);
-        allExercises = repository.getAllExercises();
+        eRepository = new ExerciseRepository(application);
+        allExercises = eRepository.getAllExercises();
     }
 
-    public void insert(Exercise exercise) {
-        repository.insert(exercise);
-    }
-
-    public void update(Exercise exercise) {
-        repository.update(exercise);
-    }
-
-    public void delete(Exercise exercise) {
-        repository.delete(exercise);
+    public CompletableFuture findByIDFuture(final int exerciseId) {
+        return eRepository.findByIdFuture(exerciseId);
     }
 
     public LiveData<List<Exercise>> getAllExercises() {
@@ -44,4 +37,20 @@ public class ExerciseViewModel extends AndroidViewModel {
     public LiveData<Exercise> getExercise() {
         return exercise;
     }
+
+    public void insert(Exercise exercise) {
+        eRepository.insert(exercise);
+    }
+
+    public void update(Exercise exercise) {
+        eRepository.update(exercise);
+    }
+
+    public void delete(Exercise exercise) {
+        eRepository.delete(exercise);
+    }
+
+
+
+
 }

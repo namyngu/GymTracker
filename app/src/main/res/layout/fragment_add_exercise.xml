@@ -126,7 +126,7 @@
                     android:text="Barbell" />
 
                 <RadioButton
-                    android:id="@+id/radio_button_stabilityball"
+                    android:id="@+id/radio_button_cable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cable" />
