@@ -57,12 +57,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
         // Get first exercise and training plan
         Exercise exercise1 = exercisesForCurrentWorkout.get(0);
-        TrainingPlan plan1 = null;
-        for (TrainingPlan tmp : trainingPlans) {
-            if (exercise1.getExerciseId() == tmp.getExerciseId()) {
-                plan1 = tmp;
-            }
-        }
+        TrainingPlan plan1 = findTrainingPlanFromExercise(exercise1);
 
         holder.binding.textViewExerciseName1.setText(exercise1.getName());
         holder.binding.textViewEquipment1.setText(exercise1.getEquipment());
@@ -87,12 +82,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
         // get 2nd exercise and training plan
         Exercise exercise2 = exercisesForCurrentWorkout.get(1);
-        TrainingPlan plan2 = null;
-        for (TrainingPlan tmp : trainingPlans) {
-            if (exercise2.getExerciseId() == tmp.getExerciseId()) {
-                plan2 = tmp;
-            }
-        }
+        TrainingPlan plan2 = findTrainingPlanFromExercise(exercise2);
 
         // Display exercise 2
         assert plan2 != null;
@@ -113,12 +103,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
         // get 2rd exercise and training plan
         Exercise exercise3 = exercisesForCurrentWorkout.get(2);
-        TrainingPlan plan3 = null;
-        for (TrainingPlan tmp : trainingPlans) {
-            if (exercise3.getExerciseId() == tmp.getExerciseId()) {
-                plan3 = tmp;
-            }
-        }
+        TrainingPlan plan3 = findTrainingPlanFromExercise(exercise3);
 
         // Display exercise 3
         assert plan3 != null;
@@ -158,5 +143,15 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
     public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
         this.trainingPlans = trainingPlans;
         notifyDataSetChanged();
+    }
+
+    public TrainingPlan findTrainingPlanFromExercise(Exercise exercise) {
+        TrainingPlan plan = null;
+        for (TrainingPlan tmp : trainingPlans ) {
+            if (tmp.getExerciseId() == exercise.getExerciseId()) {
+                plan = tmp;
+            }
+        }
+        return plan;
     }
 }
