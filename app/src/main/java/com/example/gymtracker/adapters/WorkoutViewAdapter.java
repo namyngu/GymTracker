@@ -1,6 +1,5 @@
 package com.example.gymtracker.adapters;
 
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymtracker.databinding.ItemWorkoutBinding;
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.ExerciseLog;
-import com.example.gymtracker.entity.Set;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 
 import java.util.ArrayList;
@@ -22,9 +20,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
     private List<Workout> workouts = new ArrayList<>();
     private List<Exercise> exercises = new ArrayList<>();
-    private List<Set> sets = new ArrayList<>();
-    private List<ExerciseLog> exerciseLogs = new ArrayList<>();
-
+    private List<TrainingPlan> trainingPlans = new ArrayList<>();
 
     // View Holder contains the layout for each item in the list
     @NonNull
@@ -41,12 +37,12 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         Workout currentWorkout = workouts.get(position);
 
-        // Get all sets and exercises for current workout
-        List<Set> setsForCurrentWorkout = new ArrayList<>();
+        // Get all training plans and exercises for current workout
+        List<TrainingPlan> trainingPlansForCurrentWorkout = new ArrayList<>();
         List<Exercise> exercisesForCurrentWorkout = new ArrayList<>();
-        for (Set tmp : sets) {
+        for (TrainingPlan tmp : trainingPlans) {
             if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
-                setsForCurrentWorkout.add(tmp);
+                trainingPlansForCurrentWorkout.add(tmp);
             }
             // Get all exercises for current workout
             for (Exercise tmpExercise : exercises) {
@@ -56,41 +52,25 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
             }
         }
 
-        if (setsForCurrentWorkout.size() == 0)
-            Log.e("WorkoutViewAdapter", "all exercises in a workout must have sets");
-
-
-
-        // Get all exerciseLogs and exercises for current workout
-//        List<ExerciseLog> exerciseLogsForCurrentWorkout = new ArrayList<>();
-//
-//        for (ExerciseLog tmp : exerciseLogs) {
-//            // Find exercise logs for current workout
-//            if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
-//                exerciseLogsForCurrentWorkout.add(tmp);
-//
-//                // Find exercises for current workout
-//
-//            }
-//        }
-
         // Update UI for a single card
         holder.binding.textViewWorkoutName.setText(currentWorkout.getName());
 
+        // Get first exercise and training plan
         Exercise exercise1 = exercisesForCurrentWorkout.get(0);
-        // get number of sets for exercise 1
-        int setNum1 = 0;
-        for (Set tmp : setsForCurrentWorkout) {
-            if (tmp.getExerciseId() == exercise1.getExerciseId()) {
-                setNum1++;
+        TrainingPlan plan1 = null;
+        for (TrainingPlan tmp : trainingPlans) {
+            if (exercise1.getExerciseId() == tmp.getExerciseId()) {
+                plan1 = tmp;
             }
         }
+
         holder.binding.textViewExerciseName1.setText(exercise1.getName());
         holder.binding.textViewEquipment1.setText(exercise1.getEquipment());
-        String str1 = setNum1 + " sets";
+        assert plan1 != null;
+        String str1 = plan1.getSetNum() + "x" + plan1.getReps() ;
         holder.binding.textViewVolume1.setText(str1);
 
-        // if there's only 1 exercise in a workout
+        // if there's only 1 exercise in a workout - turn hide exercise 2 and 3
         if (exercisesForCurrentWorkout.size() == 1) {
             holder.binding.textViewExerciseName2.setVisibility(View.INVISIBLE);
             holder.binding.divider2.setVisibility(View.INVISIBLE);
@@ -105,21 +85,23 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
             return;
         }
 
+        // get 2nd exercise and training plan
         Exercise exercise2 = exercisesForCurrentWorkout.get(1);
-        // get number of sets for exercise 2
-        int setNum2 = 0;
-        for (Set tmp : setsForCurrentWorkout) {
-            if (tmp.getExerciseId() == exercise2.getExerciseId()) {
-                setNum2++;
+        TrainingPlan plan2 = null;
+        for (TrainingPlan tmp : trainingPlans) {
+            if (exercise2.getExerciseId() == tmp.getExerciseId()) {
+                plan2 = tmp;
             }
         }
 
-        String str2 = setNum2 + " sets";
+        // Display exercise 2
+        assert plan2 != null;
+        String str2 = plan2.getSetNum() + "x" + plan2.getReps() ;
         holder.binding.textViewExerciseName2.setText(exercise2.getName());
         holder.binding.textViewEquipment2.setText(exercise2.getEquipment());
         holder.binding.textViewVolume2.setText(str2);
 
-        // if there's 2 exercises in a workout
+        // if there's 2 exercises in a workout - hide exercise 3
         if (exercisesForCurrentWorkout.size() == 2){
             holder.binding.textViewExerciseName3.setVisibility(View.INVISIBLE);
             holder.binding.divider3.setVisibility(View.INVISIBLE);
@@ -129,19 +111,21 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
             return;
         }
 
+        // get 2rd exercise and training plan
         Exercise exercise3 = exercisesForCurrentWorkout.get(2);
-        // get number of sets for exercise 2
-        int setNum3 = 0;
-        for (Set tmp : setsForCurrentWorkout) {
-            if (tmp.getExerciseId() == exercise3.getExerciseId()) {
-                setNum3++;
+        TrainingPlan plan3 = null;
+        for (TrainingPlan tmp : trainingPlans) {
+            if (exercise3.getExerciseId() == tmp.getExerciseId()) {
+                plan3 = tmp;
             }
         }
-        String str3 = setNum3 + " sets";
+
+        // Display exercise 3
+        assert plan3 != null;
+        String str3 = plan3.getSetNum() + "x" + plan3.getReps() ;
         holder.binding.textViewExerciseName3.setText(exercise3.getName());
         holder.binding.textViewEquipment3.setText(exercise3.getEquipment());
         holder.binding.textViewVolume3.setText(str3);
-
     }
 
     @Override
@@ -171,14 +155,8 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         notifyDataSetChanged();
     }
 
-    public void setSets(List<Set> sets) {
-        this.sets = sets;
+    public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
+        this.trainingPlans = trainingPlans;
         notifyDataSetChanged();
     }
-
-    public void setExerciseLog(List<ExerciseLog> exerciseLogs) {
-        this.exerciseLogs = exerciseLogs;
-        notifyDataSetChanged();
-    }
-
 }

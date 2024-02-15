@@ -8,8 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.Set;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.entity.WorkoutWithExercises;
 
@@ -36,13 +35,15 @@ public interface WorkoutDao {
     @Query("DELETE FROM workout_table")
     void deleteAllWorkouts();
 
-    // This query joins 3 tables - Set, ExerciseLog and Workout
-    // It gets a list of all sets that belong to a user.
-    @Query("SELECT * FROM set_table " +
-    "INNER JOIN exercise_log_table ON exercise_log_table.workoutId = set_table.workoutId  " +
-    "INNER JOIN workout_table ON exercise_log_table.workoutId = workout_table.workoutId " +
-    "WHERE workout_table.userId = :userId")
-    public LiveData<List<Set>> getAllSetsForAUser(String userId);
+
+    //TODO: DELETE LATER
+//    // This query joins 3 tables - Set, ExerciseLog and Workout
+//    // It gets a list of all sets that belong to a user.
+//    @Query("SELECT * FROM TrainingPlan " +
+//    "INNER JOIN exercise_log_table ON exercise_log_table.workoutId = TrainingPlan.workoutId  " +
+//    "INNER JOIN workout_table ON exercise_log_table.workoutId = workout_table.workoutId " +
+//    "WHERE workout_table.userId = :userId")
+//    public LiveData<List<TrainingPlan>> getAllSetsForAUser(String userId);
 
 
     // Many-to-many
@@ -50,5 +51,11 @@ public interface WorkoutDao {
     @Transaction
     @Query("SELECT * FROM workout_table WHERE workoutId = :workoutId")
     public List<WorkoutWithExercises> getWorkoutWithExercises(int workoutId);
+
+    @Transaction
+    @Query("SELECT * FROM training_plan " +
+    "INNER JOIN workout_table On workout_table.workoutId = training_plan.workoutId " +
+    "WHERE workout_table.userId = :userId")
+    public LiveData<List<TrainingPlan>> getAllTrainingPlans(String userId);
 
 }

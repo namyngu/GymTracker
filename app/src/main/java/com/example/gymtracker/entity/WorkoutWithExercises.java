@@ -12,7 +12,7 @@ public class WorkoutWithExercises {
     @Relation(
             parentColumn = "workoutId",
             entityColumn = "exerciseId",
-            associateBy = @Junction(ExerciseLog.class)
+            associateBy = @Junction(TrainingPlan.class)
     )
     public List<Exercise> exercises;
 

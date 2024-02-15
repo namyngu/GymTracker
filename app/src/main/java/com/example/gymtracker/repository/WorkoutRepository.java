@@ -7,13 +7,11 @@ import androidx.lifecycle.LiveData;
 
 import com.example.gymtracker.database.GymTrackerDB;
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.Set;
-import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.entity.WorkoutWithExercises;
 import com.example.gymtracker.interfaces.ExerciseDao;
-import com.example.gymtracker.interfaces.SetDao;
-import com.example.gymtracker.interfaces.UserDao;
+import com.example.gymtracker.interfaces.TrainingPlanDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
 
 import java.util.ArrayList;
@@ -24,8 +22,8 @@ import java.util.function.Supplier;
 public class WorkoutRepository {
 
     private WorkoutDao workoutDao;
-    private SetDao setDao;
     private ExerciseDao exerciseDao;
+    private TrainingPlanDao trainingPlanDao;
     private LiveData<List<Workout>> allWorkouts;
 
     public WorkoutRepository(Application application) {
@@ -33,8 +31,7 @@ public class WorkoutRepository {
 
         workoutDao = db.workoutDao();
         exerciseDao = db.exerciseDao();
-        setDao = db.setDao();
-
+        trainingPlanDao = db.trainingPlanDao();
     }
 
     // Need to only return workouts that belong to the user
@@ -77,13 +74,8 @@ public class WorkoutRepository {
         return exerciseDao.getAllExercisesForAUser(userId);
     }
 
-    public LiveData<List<Set>> getAllSetsForAUser (String userId) {
-        return workoutDao.getAllSetsForAUser(userId);
-    }
-
-    // Get all sets and reps for a given exercise and workout (exerciseLog)
-    public List<Set> getSetsForAnExerciseLog(Workout workout, Exercise exercise) {
-        return setDao.getSetsForAnExerciseLog(workout.getWorkoutId(), exercise.getExerciseId());
+    public LiveData<List<TrainingPlan>> getAllTrainingPlans(String userId) {
+        return workoutDao.getAllTrainingPlans(userId);
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {
@@ -104,11 +96,11 @@ public class WorkoutRepository {
         });
     }
 
-    public void insert(Set set) {
+    public void insert(TrainingPlan trainingPlan) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                setDao.insert(set);
+                trainingPlanDao.insert(trainingPlan);
             }
         });
     }

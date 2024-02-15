@@ -14,16 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gymtracker.R;
 import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.adapters.WorkoutViewAdapter;
-import com.example.gymtracker.databinding.FragmentProfileBinding;
 import com.example.gymtracker.databinding.FragmentWorkoutBinding;
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.ExerciseLog;
-import com.example.gymtracker.entity.Set;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
-import com.example.gymtracker.repository.TestData;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,7 +35,7 @@ public class WorkoutFragment extends Fragment {
     private WorkoutViewAdapter adapter;
     private LiveData<List<Workout>> allUserWorkouts;
     private LiveData<List<Exercise>> allUserExercises;
-    private LiveData<List<Set>> allUserSets;
+    private LiveData<List<TrainingPlan>> allUserTrainingPlans;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -65,7 +61,7 @@ public class WorkoutFragment extends Fragment {
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
         allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(userId);
         allUserExercises = workoutViewModel.getAllExercisesForAUser(userId);
-        allUserSets = workoutViewModel.getAllSetsForAUser(userId);
+        allUserTrainingPlans = workoutViewModel.getAllTrainingPlans(userId);
 
         // Set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,10 +84,10 @@ public class WorkoutFragment extends Fragment {
             }
         });
 
-        allUserSets.observe(getViewLifecycleOwner(), new Observer<List<Set>>() {
+        allUserTrainingPlans.observe(getViewLifecycleOwner(), new Observer<List<TrainingPlan>>() {
             @Override
-            public void onChanged(List<Set> sets) {
-                adapter.setSets(sets);
+            public void onChanged(List<TrainingPlan> trainingPlans) {
+                adapter.setTrainingPlans(trainingPlans);
             }
         });
 

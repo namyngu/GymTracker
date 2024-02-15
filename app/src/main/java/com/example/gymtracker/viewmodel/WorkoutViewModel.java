@@ -7,8 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.entity.Set;
-import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.repository.WorkoutRepository;
 
@@ -44,19 +43,15 @@ public class WorkoutViewModel extends AndroidViewModel {
         return workoutRepo.getAllExercisesForAUser(userId);
     }
 
-    public LiveData<List<Set>> getAllSetsForAUser(String userId) {
-        return workoutRepo.getAllSetsForAUser(userId);
-    }
-
-    public List<Set> getSetsForAnExerciseLog (Workout workout, Exercise exercise) {
-        return workoutRepo.getSetsForAnExerciseLog(workout, exercise);
+    public LiveData<List<TrainingPlan>> getAllTrainingPlans(String userId) {
+        return workoutRepo.getAllTrainingPlans(userId);
     }
 
     public void insert(Workout workout) {
         workoutRepo.insert(workout);
     }
 
-    public void insert(Set set) {workoutRepo.insert(set);}
+    public void insert(TrainingPlan trainingPlan) {workoutRepo.insert(trainingPlan);}
 
     public void update(Workout workout) {
         workoutRepo.update(workout);

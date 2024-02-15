@@ -13,8 +13,7 @@ import com.example.gymtracker.entity.*;
 import com.example.gymtracker.interfaces.DailyStepDao;
 //import com.example.gymtracker.interfaces.ExerciseCategoryDao;
 import com.example.gymtracker.interfaces.ExerciseDao;
-import com.example.gymtracker.interfaces.ExerciseLogDao;
-import com.example.gymtracker.interfaces.SetDao;
+import com.example.gymtracker.interfaces.TrainingPlanDao;
 import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WeightDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
@@ -23,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {DailyStep.class, Exercise.class, ExerciseLog.class, Set.class, User.class,
+@Database(entities = {DailyStep.class, Exercise.class, TrainingPlan.class, User.class,
         Weight.class, Workout.class}, version = 1, exportSchema = false)
 @TypeConverters({TypeConverter.class})
 public abstract class GymTrackerDB extends RoomDatabase {
@@ -37,9 +36,7 @@ public abstract class GymTrackerDB extends RoomDatabase {
 
 //    public abstract ExerciseCategoryDao exerciseCategoryDao();
 
-    public abstract ExerciseLogDao exerciseLogDao();
-
-    public abstract SetDao setDao();
+    public abstract TrainingPlanDao trainingPlanDao();
 
     public abstract UserDao userDao();
 

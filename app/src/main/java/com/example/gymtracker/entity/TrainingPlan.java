@@ -1,11 +1,10 @@
 package com.example.gymtracker.entity;
 
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "set_table",
+@Entity(tableName = "training_plan",
         primaryKeys = {"setNum","workoutId","exerciseId"})
-public class Set {
+public class TrainingPlan {
     private int setNum;
     private int workoutId;
     private int exerciseId;
@@ -15,7 +14,7 @@ public class Set {
 
 
     // Constructor
-    public Set(int setNum, int workoutId, int exerciseId, int reps, int weight, String notes) {
+    public TrainingPlan(int setNum, int workoutId, int exerciseId, int reps, int weight, String notes) {
         this.setNum = setNum;
         this.workoutId = workoutId;
         this.exerciseId = exerciseId;
