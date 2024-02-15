@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ExerciseViewModel extends AndroidViewModel {
 
-    private ExerciseRepository eRepository;
+    private final ExerciseRepository eRepository;
     private LiveData<List<Exercise>> allExercisesForAUser;
     private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
 
@@ -30,7 +30,7 @@ public class ExerciseViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
-        allExercisesForAUser = eRepository.getAllExercisesForAUserExercises(userId);
+        allExercisesForAUser = eRepository.getAllExercisesForAUser(userId);
         return allExercisesForAUser;
     }
 

@@ -98,7 +98,6 @@ public class ExerciseFragment extends Fragment {
 
                 // Update RecyclerView adapter and display it again.
                 adapter.setExercises(exercises);
-
             }
         });
 

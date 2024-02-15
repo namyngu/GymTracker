@@ -23,6 +23,8 @@ public class WorkoutViewModel extends AndroidViewModel {
     public WorkoutViewModel (@NonNull Application application) {
         super(application);
         workoutRepo = new WorkoutRepository(application);
+
+
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {
@@ -38,11 +40,11 @@ public class WorkoutViewModel extends AndroidViewModel {
         return workoutRepo.getAllExercisesForAWorkout(workout);
     }
 
-    public List<Exercise> getAllExercisesForAUser(String userId) {
-        return workoutRepo.getAllExercisesForAUser(userId).getValue();
+    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
+        return workoutRepo.getAllExercisesForAUser(userId);
     }
 
-    public List<Set> getAllSetsForAUser(String userId) {
+    public LiveData<List<Set>> getAllSetsForAUser(String userId) {
         return workoutRepo.getAllSetsForAUser(userId);
     }
 
@@ -53,6 +55,8 @@ public class WorkoutViewModel extends AndroidViewModel {
     public void insert(Workout workout) {
         workoutRepo.insert(workout);
     }
+
+    public void insert(Set set) {workoutRepo.insert(set);}
 
     public void update(Workout workout) {
         workoutRepo.update(workout);

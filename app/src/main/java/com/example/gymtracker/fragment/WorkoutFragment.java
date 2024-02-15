@@ -23,6 +23,7 @@ import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.entity.ExerciseLog;
 import com.example.gymtracker.entity.Set;
 import com.example.gymtracker.entity.Workout;
+import com.example.gymtracker.repository.TestData;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,8 +38,8 @@ public class WorkoutFragment extends Fragment {
     private WorkoutViewModel workoutViewModel;
     private WorkoutViewAdapter adapter;
     private LiveData<List<Workout>> allUserWorkouts;
-    private List<Exercise> allUserExercises;
-    private List<Set> allUserSets;
+    private LiveData<List<Exercise>> allUserExercises;
+    private LiveData<List<Set>> allUserSets;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -51,17 +52,20 @@ public class WorkoutFragment extends Fragment {
         // get firebase auth instance and get current user
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        String userId = user.getUid();
 
         // Change actionbar Title
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         assert activity != null;
         Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Workout Routines");
 
+
+
         // Initialize View Model
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
-        allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(user.getUid());
-        allUserExercises = workoutViewModel.getAllExercisesForAUser(user.getUid());
-        allUserSets = workoutViewModel.getAllSetsForAUser(user.getUid());
+        allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(userId);
+        allUserExercises = workoutViewModel.getAllExercisesForAUser(userId);
+        allUserSets = workoutViewModel.getAllSetsForAUser(userId);
 
         // Set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -74,17 +78,25 @@ public class WorkoutFragment extends Fragment {
             @Override
             public void onChanged(List<Workout> workouts) {
                 adapter.setWorkouts(workouts);
-                adapter.setExercises(allUserExercises);
-                adapter.setSets(allUserSets);
             }
         });
 
+        allUserExercises.observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                adapter.setExercises(exercises);
+            }
+        });
 
-
+        allUserSets.observe(getViewLifecycleOwner(), new Observer<List<Set>>() {
+            @Override
+            public void onChanged(List<Set> sets) {
+                adapter.setSets(sets);
+            }
+        });
 
         return binding.getRoot();
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

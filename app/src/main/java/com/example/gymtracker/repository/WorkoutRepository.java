@@ -32,6 +32,9 @@ public class WorkoutRepository {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         workoutDao = db.workoutDao();
+        exerciseDao = db.exerciseDao();
+        setDao = db.setDao();
+
     }
 
     // Need to only return workouts that belong to the user
@@ -74,7 +77,7 @@ public class WorkoutRepository {
         return exerciseDao.getAllExercisesForAUser(userId);
     }
 
-    public List<Set> getAllSetsForAUser (String userId) {
+    public LiveData<List<Set>> getAllSetsForAUser (String userId) {
         return workoutDao.getAllSetsForAUser(userId);
     }
 
@@ -97,6 +100,15 @@ public class WorkoutRepository {
             @Override
             public void run() {
                 workoutDao.insert(workout);
+            }
+        });
+    }
+
+    public void insert(Set set) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setDao.insert(set);
             }
         });
     }

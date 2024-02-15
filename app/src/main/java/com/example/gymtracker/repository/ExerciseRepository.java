@@ -60,7 +60,7 @@ public class ExerciseRepository {
         }, GymTrackerDB.databaseWriteExecutor);
     }
 
-    public LiveData<List<Exercise>> getAllExercisesForAUserExercises(String userId) {
+    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
         allExercisesForAUser = exerciseDao.getAllExercisesForAUser(userId);
         return allExercisesForAUser;
     }

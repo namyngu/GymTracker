@@ -39,10 +39,10 @@ public interface WorkoutDao {
     // This query joins 3 tables - Set, ExerciseLog and Workout
     // It gets a list of all sets that belong to a user.
     @Query("SELECT * FROM set_table " +
-    "INNER JOIN exercise_log_table ON exercise_log_table.workoutId = workoutId  " +
-    "INNER JOIN workout_table ON exercise_log_table.workoutId = workoutId " +
+    "INNER JOIN exercise_log_table ON exercise_log_table.workoutId = set_table.workoutId  " +
+    "INNER JOIN workout_table ON exercise_log_table.workoutId = workout_table.workoutId " +
     "WHERE workout_table.userId = :userId")
-    public List<Set> getAllSetsForAUser(String userId);
+    public LiveData<List<Set>> getAllSetsForAUser(String userId);
 
 
     // Many-to-many

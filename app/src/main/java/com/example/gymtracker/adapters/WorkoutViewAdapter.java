@@ -41,33 +41,38 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         Workout currentWorkout = workouts.get(position);
 
-        // Get all sets for current workout
+        // Get all sets and exercises for current workout
         List<Set> setsForCurrentWorkout = new ArrayList<>();
+        List<Exercise> exercisesForCurrentWorkout = new ArrayList<>();
         for (Set tmp : sets) {
             if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
                 setsForCurrentWorkout.add(tmp);
+            }
+            // Get all exercises for current workout
+            for (Exercise tmpExercise : exercises) {
+                if (tmpExercise.getExerciseId() == tmp.getExerciseId()) {
+                    exercisesForCurrentWorkout.add(tmpExercise);
+                }
             }
         }
 
         if (setsForCurrentWorkout.size() == 0)
             Log.e("WorkoutViewAdapter", "all exercises in a workout must have sets");
 
-        // Get all exerciseLogs and exercises for current workout
-        List<ExerciseLog> exerciseLogsForCurrentWorkout = new ArrayList<>();
-        List<Exercise> exercisesForCurrentWorkout = new ArrayList<>();
-        for (ExerciseLog tmp : exerciseLogs) {
-            // Find exercise logs for current workout
-            if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
-                exerciseLogsForCurrentWorkout.add(tmp);
 
-                // Find exercises for current workout
-                for (Exercise tmpExercise : exercises) {
-                    if (tmpExercise.getExerciseId() == tmp.getExerciseId()) {
-                        exercisesForCurrentWorkout.add(tmpExercise);
-                    }
-                }
-            }
-        }
+
+        // Get all exerciseLogs and exercises for current workout
+//        List<ExerciseLog> exerciseLogsForCurrentWorkout = new ArrayList<>();
+//
+//        for (ExerciseLog tmp : exerciseLogs) {
+//            // Find exercise logs for current workout
+//            if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
+//                exerciseLogsForCurrentWorkout.add(tmp);
+//
+//                // Find exercises for current workout
+//
+//            }
+//        }
 
         // Update UI for a single card
         holder.binding.textViewWorkoutName.setText(currentWorkout.getName());
@@ -82,7 +87,8 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         }
         holder.binding.textViewExerciseName1.setText(exercise1.getName());
         holder.binding.textViewEquipment1.setText(exercise1.getEquipment());
-        holder.binding.textViewVolume1.setText(setNum1 + " sets");
+        String str1 = setNum1 + " sets";
+        holder.binding.textViewVolume1.setText(str1);
 
         // if there's only 1 exercise in a workout
         if (exercisesForCurrentWorkout.size() == 1) {
@@ -107,9 +113,11 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
                 setNum2++;
             }
         }
+
+        String str2 = setNum2 + " sets";
         holder.binding.textViewExerciseName2.setText(exercise2.getName());
         holder.binding.textViewEquipment2.setText(exercise2.getEquipment());
-        holder.binding.textViewVolume2.setText(setNum2 + " sets");
+        holder.binding.textViewVolume2.setText(str2);
 
         // if there's 2 exercises in a workout
         if (exercisesForCurrentWorkout.size() == 2){
@@ -129,9 +137,10 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
                 setNum3++;
             }
         }
+        String str3 = setNum3 + " sets";
         holder.binding.textViewExerciseName3.setText(exercise3.getName());
         holder.binding.textViewEquipment3.setText(exercise3.getEquipment());
-        holder.binding.textViewVolume3.setText(setNum3 + " sets");
+        holder.binding.textViewVolume3.setText(str3);
 
     }
 
