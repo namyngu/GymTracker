@@ -12,7 +12,7 @@
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -27,24 +27,98 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_exercise"
+                android:layout_width="236dp"
+                android:layout_height="match_parent"
+                android:spinnerMode="dropdown" />
+
+            <Button
+                android:id="@+id/button_add_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Add exercise"
+
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            android:divider="@drawable/divider8p">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/lightgrey">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_sets"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Sets"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/lightgrey">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_reps"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Reps"
+
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/lightgrey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_notes"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="top"
+                android:hint="Notes"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_exercise"
         tools:listitem="@layout/item_set" />
-
-    <Button
-        android:id="@+id/button_add_exercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="+ Add exercises"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

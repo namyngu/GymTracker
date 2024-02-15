@@ -9,17 +9,15 @@ public class TrainingPlan {
     private int workoutId;
     private int exerciseId;
     private int reps;
-    private int weight;
     private String notes;
 
 
     // Constructor
-    public TrainingPlan(int setNum, int workoutId, int exerciseId, int reps, int weight, String notes) {
+    public TrainingPlan(int setNum, int workoutId, int exerciseId, int reps, String notes) {
         this.setNum = setNum;
         this.workoutId = workoutId;
         this.exerciseId = exerciseId;
         this.reps = reps;
-        this.weight = weight;
         this.notes = notes;
     }
 
@@ -40,10 +38,6 @@ public class TrainingPlan {
         return reps;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -56,10 +50,6 @@ public class TrainingPlan {
 
     public void setReps(int reps) {
         this.reps = reps;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     public void setNotes(String notes) {
