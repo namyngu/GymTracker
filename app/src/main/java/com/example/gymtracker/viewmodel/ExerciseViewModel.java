@@ -16,21 +16,22 @@ import java.util.concurrent.CompletableFuture;
 public class ExerciseViewModel extends AndroidViewModel {
 
     private ExerciseRepository eRepository;
-    private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> allExercisesForAUser;
     private MutableLiveData<Exercise> exercise = new MutableLiveData<>();
 
     public ExerciseViewModel (@NonNull Application application) {
         super(application);
         eRepository = new ExerciseRepository(application);
-        allExercises = eRepository.getAllExercises();
+
     }
 
     public CompletableFuture<Exercise> findByIDFuture(final int exerciseId) {
         return eRepository.findByIdFuture(exerciseId);
     }
 
-    public LiveData<List<Exercise>> getAllExercises() {
-        return allExercises;
+    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
+        allExercisesForAUser = eRepository.getAllExercisesForAUserExercises(userId);
+        return allExercisesForAUser;
     }
 
     // Return LiveData because we don't want to expose the setValue and postvalue to the outside

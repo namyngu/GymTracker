@@ -15,14 +15,13 @@ import java.util.function.Supplier;
 public class ExerciseRepository {
 
     private ExerciseDao exerciseDao;
-    private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> allExercisesForAUser;
 
     // Constructor
     public ExerciseRepository(Application application) {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         exerciseDao = db.exerciseDao();
-        allExercises = exerciseDao.getAllExercises();
     }
 
     public void insert(Exercise exercise) {
@@ -61,7 +60,8 @@ public class ExerciseRepository {
         }, GymTrackerDB.databaseWriteExecutor);
     }
 
-    public LiveData<List<Exercise>> getAllExercises() {
-        return allExercises;
+    public LiveData<List<Exercise>> getAllExercisesForAUserExercises(String userId) {
+        allExercisesForAUser = exerciseDao.getAllExercisesForAUser(userId);
+        return allExercisesForAUser;
     }
 }

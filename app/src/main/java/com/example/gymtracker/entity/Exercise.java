@@ -17,29 +17,36 @@ public class Exercise {
     private String equipment;
     private String category;
     private boolean visibility;
+    private String userId;
 
 
     @Ignore
     // Constructors
-    public Exercise(String name, String notes, String muscle, String equipment) {
+    public Exercise(String name, String notes, String muscle, String equipment, String userId) {
         this.name = name;
         this.notes = notes;
         this.muscle = muscle;
         this.equipment = equipment;
         this.category = "Other";
         this.visibility = true;
+        this.userId = userId;
     }
 
-    public Exercise(String name, String notes, String muscle, String equipment, String category) {
+    public Exercise(String name, String notes, String muscle, String equipment, String category, String userId) {
         this.name = name;
         this.notes = notes;
         this.muscle = muscle;
         this.equipment = equipment;
         this.category = category;
         this.visibility = true;
+        this.userId = userId;
     }
 
     // Getter methods
+
+    public String getUserId() {
+        return userId;
+    }
     public int getExerciseId() {
         return exerciseId;
     }
@@ -79,5 +86,21 @@ public class Exercise {
 
     public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMuscle(String muscle) {
+        this.muscle = muscle;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

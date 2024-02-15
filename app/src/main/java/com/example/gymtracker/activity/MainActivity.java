@@ -20,8 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    FirebaseAuth auth;
-    FirebaseUser user;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     User localUser;
 
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         // get firebase auth instance and get current user
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
 
         // if user doesn't exist return to login screen otherwise display user email.
         if (user == null) {

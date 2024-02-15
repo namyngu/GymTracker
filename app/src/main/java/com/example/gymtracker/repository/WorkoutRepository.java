@@ -23,11 +23,10 @@ public class WorkoutRepository {
     private WorkoutDao workoutDao;
     private LiveData<List<Workout>> allWorkouts;
 
-    public WorkoutRepository(Application application, String userId) {
+    public WorkoutRepository(Application application) {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         workoutDao = db.workoutDao();
-        LiveData<List<Workout>> workouts = getAllWorkouts(userId);
     }
 
     // Need to only return workouts that belong to the user
@@ -53,7 +52,7 @@ public class WorkoutRepository {
     }
 
     // Get all the exercises for a given workout
-    // TODO: TEST THIS If WORKS
+    // TODO: TEST IF THIS WORKS
     public List<Exercise> getExercisesFromWorkout(Workout workout) {
 
         List<WorkoutWithExercises> tmpData = workoutDao.getWorkoutWithExercises(workout.getWorkoutId());

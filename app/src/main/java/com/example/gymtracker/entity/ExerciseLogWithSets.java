@@ -10,7 +10,7 @@
 //    public ExerciseLog exerciseLog;
 //
 //    @Relation(
-//            parentColumn = "logId",
+//            parentColumn = {"exerciseId","workoutId"},
 //            entityColumn = "logId"
 //    )
 //

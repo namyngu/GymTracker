@@ -23,6 +23,9 @@ public interface SetDao {
     @Delete
     public void delete(Set set);
 
-    @Query("SELECT * FROM set_table ORDER BY logId")
+    @Query("SELECT * FROM set_table")
     public LiveData<List<Set>> getAllSets();
+
+    @Query("SELECT * FROM set_table WHERE exerciseId = :exerciseId AND workoutId = :workoutId")
+    public LiveData<List<Set>> getAllSetsForAnExerciseLog(String exerciseId, String workoutId);
 }

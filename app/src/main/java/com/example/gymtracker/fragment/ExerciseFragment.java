@@ -24,6 +24,8 @@ import com.example.gymtracker.databinding.FragmentExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.viewmodel.ExerciseViewModel;
 import com.example.gymtracker.viewmodel.SharedViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,9 @@ public class ExerciseFragment extends Fragment {
     private ExerciseViewAdapter adapter;
     private LiveData<List<Exercise>> allExercises;
     private List<Exercise> exerciseList;
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     public ExerciseFragment() {
         // Required empty public constructor
@@ -53,6 +58,10 @@ public class ExerciseFragment extends Fragment {
         binding = FragmentExerciseBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        // get firebase auth instance and get current user
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         // Change actionbar Title
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         assert activity != null;
@@ -68,7 +77,9 @@ public class ExerciseFragment extends Fragment {
 
         // Initialize view model
         exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
-        allExercises = exerciseViewModel.getAllExercises();
+
+        // Display exercises for that user only
+        allExercises = exerciseViewModel.getAllExercisesForAUser(user.getUid());
 
         // set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

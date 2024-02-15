@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.gymtracker.entity.*;
 import com.example.gymtracker.interfaces.DailyStepDao;
-import com.example.gymtracker.interfaces.EquipmentDao;
 //import com.example.gymtracker.interfaces.ExerciseCategoryDao;
 import com.example.gymtracker.interfaces.ExerciseDao;
 import com.example.gymtracker.interfaces.ExerciseLogDao;
@@ -24,8 +23,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {DailyStep.class, Equipment.class, Exercise.class,
-        ExerciseLog.class,Set.class, User.class, Weight.class, Workout.class}, version = 1, exportSchema = false)
+@Database(entities = {DailyStep.class, Exercise.class, ExerciseLog.class, Set.class, User.class,
+        Weight.class, Workout.class}, version = 1, exportSchema = false)
 @TypeConverters({TypeConverter.class})
 public abstract class GymTrackerDB extends RoomDatabase {
 
@@ -33,8 +32,6 @@ public abstract class GymTrackerDB extends RoomDatabase {
 
     // Later use this to access our Dao
     public abstract DailyStepDao dailyStepDao();
-
-    public abstract EquipmentDao equipmentDao();
 
     public abstract ExerciseDao exerciseDao();
 

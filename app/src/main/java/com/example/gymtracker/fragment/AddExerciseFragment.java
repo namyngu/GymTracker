@@ -22,12 +22,16 @@ import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.FragmentAddExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.viewmodel.ExerciseViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
 public class AddExerciseFragment extends Fragment {
     FragmentAddExerciseBinding binding;
     ExerciseViewModel exerciseViewModel;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     int buttonId;
 
@@ -271,8 +275,12 @@ public class AddExerciseFragment extends Fragment {
             return;
         }
 
+        // get firebase auth instance and get current user
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         // Accept input, save exercise, insert exercise into database and close activity.
-        Exercise exercise = new Exercise(name, notes, muscle, equipment);
+        Exercise exercise = new Exercise(name, notes, muscle, equipment, user.getUid());
         exerciseViewModel.insert(exercise);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("Your Exercises");

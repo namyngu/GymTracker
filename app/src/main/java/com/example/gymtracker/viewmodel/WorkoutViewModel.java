@@ -16,20 +16,20 @@ import java.util.concurrent.CompletableFuture;
 public class WorkoutViewModel extends AndroidViewModel {
     String userId;
     private WorkoutRepository workoutRepo;
-    private LiveData<List<Workout>> allWorkouts;
+    private LiveData<List<Workout>> allUserWorkouts;
 
-    public WorkoutViewModel (@NonNull Application application, String userId) {
+    public WorkoutViewModel (@NonNull Application application) {
         super(application);
-        workoutRepo = new WorkoutRepository(application, userId);
-        allWorkouts = workoutRepo.getAllWorkouts(userId);
+        workoutRepo = new WorkoutRepository(application);
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {
         return workoutRepo.findByIdFuture(workoutId);
     }
 
-    public LiveData<List<Workout>> getAllWorkouts() {
-        return allWorkouts;
+    public LiveData<List<Workout>> getAllWorkoutsForAUser(String userId) {
+        allUserWorkouts = workoutRepo.getAllWorkouts(userId);
+        return allUserWorkouts;
     }
 
     public void insert(Workout workout) {
