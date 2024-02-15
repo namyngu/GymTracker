@@ -44,6 +44,20 @@
                 android:text="Barbell"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+            <TextView
+                android:textStyle="normal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:background="@color/white"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right|end"
+                android:src="@drawable/ic_bin" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -58,6 +72,15 @@
                 android:layout_marginTop="8dp"
                 android:text="Chest"
                 android:textColor="@color/grey" />
+
+            <TextView
+                android:id="@+id/text_view_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="4x8"
+                android:textAlignment="textEnd"/>
+
         </LinearLayout>
     </LinearLayout>
 
