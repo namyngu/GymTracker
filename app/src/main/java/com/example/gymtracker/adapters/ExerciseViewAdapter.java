@@ -22,11 +22,6 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
 
     }
 
-    public ExerciseViewAdapter(List<Exercise> exercises) {
-        this.exercises = exercises;
-    }
-
-
     // ViewHolder contains the layout for each item in the list
     @NonNull
     @Override

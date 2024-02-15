@@ -7,9 +7,11 @@ import androidx.lifecycle.LiveData;
 
 import com.example.gymtracker.database.GymTrackerDB;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.entity.Set;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.entity.WorkoutWithExercises;
+import com.example.gymtracker.interfaces.SetDao;
 import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
 
@@ -21,6 +23,7 @@ import java.util.function.Supplier;
 public class WorkoutRepository {
 
     private WorkoutDao workoutDao;
+    private SetDao setDao;
     private LiveData<List<Workout>> allWorkouts;
 
     public WorkoutRepository(Application application) {
@@ -31,14 +34,14 @@ public class WorkoutRepository {
 
     // Need to only return workouts that belong to the user
     // CompletableFuture may be optional
-    public LiveData<List<Workout>> getAllWorkouts(String userId) {
+    public LiveData<List<Workout>> getAllWorkoutsForAUser(String userId) {
         LiveData<List<Workout>> allWorkouts = null;
 
         CompletableFuture<LiveData<List<Workout>>> completableWorkouts =
                 CompletableFuture.supplyAsync(new Supplier<LiveData<List<Workout>>>() {
             @Override
             public LiveData<List<Workout>> get() {
-                return workoutDao.getAllWorkouts(userId);
+                return workoutDao.getAllWorkoutsForAUser(userId);
             }
         }, GymTrackerDB.databaseWriteExecutor);
 
@@ -53,7 +56,7 @@ public class WorkoutRepository {
 
     // Get all the exercises for a given workout
     // TODO: TEST IF THIS WORKS
-    public List<Exercise> getExercisesFromWorkout(Workout workout) {
+    public List<Exercise> getAllExercisesForAWorkout(Workout workout) {
 
         List<WorkoutWithExercises> tmpData = workoutDao.getWorkoutWithExercises(workout.getWorkoutId());
 
@@ -63,6 +66,12 @@ public class WorkoutRepository {
         }
 
         return exercises;
+    }
+
+    // Get all sets and reps for a given exercise and workout (exerciseLog)
+    public List<Set> getSetsForAnExerciseLog(Workout workout, Exercise exercise) {
+        List<Set> sets = setDao.getSetsForAnExerciseLog(workout.getWorkoutId(), exercise.getExerciseId());
+        return sets;
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {

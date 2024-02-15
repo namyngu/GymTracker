@@ -27,7 +27,7 @@ public interface WorkoutDao {
     public void delete(Workout workout);
 
     @Query("SELECT * FROM workout_table WHERE userId = :userId")
-    public LiveData<List<Workout>> getAllWorkouts(String userId);
+    public LiveData<List<Workout>> getAllWorkoutsForAUser(String userId);
 
     @Query("SELECT * FROM workout_table WHERE workoutId = :workoutId")
     Workout findById(int workoutId);

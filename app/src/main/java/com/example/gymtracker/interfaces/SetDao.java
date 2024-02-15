@@ -26,6 +26,7 @@ public interface SetDao {
     @Query("SELECT * FROM set_table")
     public LiveData<List<Set>> getAllSets();
 
+    // Get all sets for an exercise log
     @Query("SELECT * FROM set_table WHERE exerciseId = :exerciseId AND workoutId = :workoutId")
-    public LiveData<List<Set>> getAllSetsForAnExerciseLog(String exerciseId, String workoutId);
+    public List<Set> getSetsForAnExerciseLog(int exerciseId, int workoutId);
 }

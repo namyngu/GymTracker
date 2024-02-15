@@ -85,6 +85,7 @@
 
 
             <ImageView
+                android:id="@+id/divider2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -126,6 +127,7 @@
 
 
             <ImageView
+                android:id="@+id/divider3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -158,6 +160,7 @@
             android:paddingTop="8dp">
 
             <TextView
+                android:id="@+id/text_view_ellipsis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="..."
