@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.entity.Set;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.entity.WorkoutWithExercises;
 
@@ -34,6 +35,14 @@ public interface WorkoutDao {
 
     @Query("DELETE FROM workout_table")
     void deleteAllWorkouts();
+
+    // This query joins 3 tables - Set, ExerciseLog and Workout
+    // It gets a list of all sets that belong to a user.
+    @Query("SELECT * FROM set_table " +
+    "INNER JOIN exercise_log_table ON exercise_log_table.workoutId = workoutId  " +
+    "INNER JOIN workout_table ON exercise_log_table.workoutId = workoutId " +
+    "WHERE workout_table.userId = :userId")
+    public List<Set> getAllSetsForAUser(String userId);
 
 
     // Many-to-many

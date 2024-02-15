@@ -11,6 +11,7 @@ import com.example.gymtracker.entity.Set;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.entity.WorkoutWithExercises;
+import com.example.gymtracker.interfaces.ExerciseDao;
 import com.example.gymtracker.interfaces.SetDao;
 import com.example.gymtracker.interfaces.UserDao;
 import com.example.gymtracker.interfaces.WorkoutDao;
@@ -24,6 +25,7 @@ public class WorkoutRepository {
 
     private WorkoutDao workoutDao;
     private SetDao setDao;
+    private ExerciseDao exerciseDao;
     private LiveData<List<Workout>> allWorkouts;
 
     public WorkoutRepository(Application application) {
@@ -68,10 +70,17 @@ public class WorkoutRepository {
         return exercises;
     }
 
+    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
+        return exerciseDao.getAllExercisesForAUser(userId);
+    }
+
+    public List<Set> getAllSetsForAUser (String userId) {
+        return workoutDao.getAllSetsForAUser(userId);
+    }
+
     // Get all sets and reps for a given exercise and workout (exerciseLog)
     public List<Set> getSetsForAnExerciseLog(Workout workout, Exercise exercise) {
-        List<Set> sets = setDao.getSetsForAnExerciseLog(workout.getWorkoutId(), exercise.getExerciseId());
-        return sets;
+        return setDao.getSetsForAnExerciseLog(workout.getWorkoutId(), exercise.getExerciseId());
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {

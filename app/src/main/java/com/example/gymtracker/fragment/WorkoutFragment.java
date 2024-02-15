@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,6 +19,9 @@ import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.adapters.WorkoutViewAdapter;
 import com.example.gymtracker.databinding.FragmentProfileBinding;
 import com.example.gymtracker.databinding.FragmentWorkoutBinding;
+import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.entity.ExerciseLog;
+import com.example.gymtracker.entity.Set;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +37,8 @@ public class WorkoutFragment extends Fragment {
     private WorkoutViewModel workoutViewModel;
     private WorkoutViewAdapter adapter;
     private LiveData<List<Workout>> allUserWorkouts;
+    private List<Exercise> allUserExercises;
+    private List<Set> allUserSets;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -54,6 +60,8 @@ public class WorkoutFragment extends Fragment {
         // Initialize View Model
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
         allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(user.getUid());
+        allUserExercises = workoutViewModel.getAllExercisesForAUser(user.getUid());
+        allUserSets = workoutViewModel.getAllSetsForAUser(user.getUid());
 
         // Set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,6 +69,15 @@ public class WorkoutFragment extends Fragment {
         // Attach RecyclerView to adapter
         adapter = new WorkoutViewAdapter();
         binding.recyclerView.setAdapter(adapter);
+
+        allUserWorkouts.observe(getViewLifecycleOwner(), new Observer<List<Workout>>() {
+            @Override
+            public void onChanged(List<Workout> workouts) {
+                adapter.setWorkouts(workouts);
+                adapter.setExercises(allUserExercises);
+                adapter.setSets(allUserSets);
+            }
+        });
 
 
 

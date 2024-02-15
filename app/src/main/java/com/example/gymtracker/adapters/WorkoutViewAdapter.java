@@ -25,6 +25,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
     private List<Set> sets = new ArrayList<>();
     private List<ExerciseLog> exerciseLogs = new ArrayList<>();
 
+
     // View Holder contains the layout for each item in the list
     @NonNull
     @Override

@@ -35,13 +35,19 @@ public class WorkoutViewModel extends AndroidViewModel {
     }
 
     public List<Exercise> getAllExercisesForAWorkout(Workout workout) {
-        List<Exercise> allExercisesForAWorkout = workoutRepo.getAllExercisesForAWorkout(workout);
-        return allExercisesForAWorkout;
+        return workoutRepo.getAllExercisesForAWorkout(workout);
+    }
+
+    public List<Exercise> getAllExercisesForAUser(String userId) {
+        return workoutRepo.getAllExercisesForAUser(userId).getValue();
+    }
+
+    public List<Set> getAllSetsForAUser(String userId) {
+        return workoutRepo.getAllSetsForAUser(userId);
     }
 
     public List<Set> getSetsForAnExerciseLog (Workout workout, Exercise exercise) {
-        List<Set> sets = workoutRepo.getSetsForAnExerciseLog(workout, exercise);
-        return sets;
+        return workoutRepo.getSetsForAnExerciseLog(workout, exercise);
     }
 
     public void insert(Workout workout) {
