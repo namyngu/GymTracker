@@ -3,9 +3,12 @@ package com.example.gymtracker.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -22,6 +25,7 @@ import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.FragmentAddExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.viewmodel.ExerciseViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -46,8 +50,7 @@ public class AddExerciseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddExerciseBinding.inflate(inflater, container, false);
-
-
+        View view = binding.getRoot();
 
         exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
 
@@ -56,6 +59,10 @@ public class AddExerciseFragment extends Fragment {
                 R.array.muscles_array,      // Add list of possible muscles for spinner
                 android.R.layout.simple_spinner_item
         );
+
+
+
+
 
         // Specify the layout to use when the list of choices appears.
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -223,7 +230,27 @@ public class AddExerciseFragment extends Fragment {
         Objects.requireNonNull(activity.getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_close);
         activity.getSupportActionBar().setTitle("Add Exercise");
 
-        return binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Hide Bottom Navigation Bar
+        BottomNavigationView navBar = requireActivity().findViewById(R.id.bottomNavigationView);
+        navBar.setVisibility(View.INVISIBLE);
+
+        // Show bottom navbar once we exit the screen
+        NavController navController = Navigation.findNavController(requireView());      // This will only work once onCreateView method returns a view - otherwise null pointer exception.
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if (navDestination.getId() != R.id.nav_add_exercise_fragment) {
+                    navBar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
@@ -285,6 +312,7 @@ public class AddExerciseFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("Your Exercises");
         Navigation.findNavController(getView()).navigate(R.id.navigate_to_exercise_fragment);
+
 
     }
 
