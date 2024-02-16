@@ -23,10 +23,11 @@ public class TrainingPlan {
 
     @Ignore
     // Constructor
-    public TrainingPlan(int setNum, int reps, String notes) {
+    public TrainingPlan(int setNum, int reps, String notes, long exerciseId) {
         this.setNum = setNum;
         this.reps = reps;
         this.notes = notes;
+        this.exerciseId = exerciseId;
     }
     public TrainingPlan(int setNum, long workoutId, long exerciseId, int reps, String notes) {
         this.setNum = setNum;

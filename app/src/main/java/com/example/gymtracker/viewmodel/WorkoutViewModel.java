@@ -51,11 +51,17 @@ public class WorkoutViewModel extends AndroidViewModel {
         return workoutRepo.getAllTrainingPlans(userId);
     }
 
+
+
     public void insert(Workout workout) {
         workoutRepo.insert(workout);
     }
 
     public void insert(TrainingPlan trainingPlan) {workoutRepo.insert(trainingPlan);}
+
+    public void insert(Workout workout, List<TrainingPlan> trainingPlans) {
+        workoutRepo.insert(workout, trainingPlans);
+    }
 
     public void update(Workout workout) {
         workoutRepo.update(workout);

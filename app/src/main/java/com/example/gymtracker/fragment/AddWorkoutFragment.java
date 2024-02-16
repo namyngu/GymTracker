@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.example.gymtracker.R;
 import com.example.gymtracker.adapters.AddWorkoutViewAdapter;
 import com.example.gymtracker.databinding.FragmentAddWorkoutBinding;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -141,12 +143,10 @@ public class AddWorkoutFragment extends Fragment {
             }
         });
 
-        // TODO: Handle delete exercise button click event (make a clear button a lot easier!)
+        // TODO: Handle delete exercise button click event (easier to make a clear_all button!)
         // Remove exercise from addedExercises and templates
         // Add exercise back to yourExercise
         // Re-apply adapters
-
-
 
         return view;
     }
@@ -167,8 +167,17 @@ public class AddWorkoutFragment extends Fragment {
         }
         String name = binding.editTextName.getText().toString().trim();
 
+        // Create Workout and TrainingPlan object to insert into db
         Workout workout = new Workout(name, user.getUid(), Calendar.getInstance().getTime());
+        List<TrainingPlan> trainingPlans = new ArrayList<>();
+        for (ExerciseTemplate tmp : templates) {
+            TrainingPlan newPlan = new TrainingPlan(tmp.getSets(), tmp.getReps(), tmp.getNotes(), tmp.getExercise().getExerciseId());
+            trainingPlans.add(newPlan);
+        }
+        // The TrainingPlanDao has methods to add both workout and a list of training plans.
+        workoutViewModel.insert(workout, trainingPlans);
 
+        Navigation.findNavController(getView()).navigate(R.id.navigate_to_WorkoutFragment);
     }
 
 

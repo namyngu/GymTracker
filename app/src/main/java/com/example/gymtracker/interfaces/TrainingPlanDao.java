@@ -38,14 +38,13 @@ public abstract class TrainingPlanDao {
     // Insert new workout and training plans
     // Need to make Dao abstract so we can include method body
     @Transaction
-    public void insert(Workout workout, List<TrainingPlan> trainingPlans, int exerciseId) {
+    public void insert(Workout workout, List<TrainingPlan> trainingPlans) {
         // Save rowId of inserted workout as workoutId
         final long workoutId = insert(workout);
 
         // Set workoutId for all related trainingPlans
         for (TrainingPlan trainingPlan : trainingPlans) {
             trainingPlan.setWorkoutId(workoutId);
-            trainingPlan.setExerciseId(exerciseId);
             insert(trainingPlan);
         }
 

@@ -63,5 +63,9 @@
         android:id="@+id/nav_add_workout_fragment"
         android:name="com.example.gymtracker.fragment.AddWorkoutFragment"
         android:label="fragment_add_workout"
-        tools:layout="@layout/fragment_add_workout" />
+        tools:layout="@layout/fragment_add_workout" >
+        <action
+            android:id="@+id/navigate_to_WorkoutFragment"
+            app:destination="@id/nav_workout_fragment" />
+    </fragment>
 </navigation>

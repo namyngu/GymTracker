@@ -114,6 +114,15 @@ public class WorkoutRepository {
         });
     }
 
+    public void insert(Workout workout, List<TrainingPlan> trainingPlans) {
+        GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                trainingPlanDao.insert(workout, trainingPlans);
+            }
+        });
+    }
+
     public void update(Workout workout) {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
