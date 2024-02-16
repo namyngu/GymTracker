@@ -57,10 +57,21 @@ public class AddWorkoutFragment extends Fragment {
 
         List<Exercise> addedExercises = new ArrayList<>();
         List<ExerciseTemplate> templates = new ArrayList<>();
-        // Have to use livedata - can't get List objects to work for completable future
-        //LiveData<List<Exercise>> yourExercises = workoutViewModel.getLiveDataExercisesForAUser(user.getUid());
+        List<Exercise> yourExercises = new ArrayList<>();
 
-        List<Exercise> yourExercises = new ArrayList<>(); // Declare the variable to hold the exercises
+//        yourExercises.observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+//            @Override
+//            public void onChanged(List<Exercise> exercises) {
+//                //Setup adapter for spinner
+//                ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
+//                        getContext(),
+//                        android.R.layout.simple_spinner_item,
+//                        exercises);
+//                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                binding.spinnerExercise.setAdapter(spinnerAdapter);
+//            }
+//        });
+
 
         CompletableFuture<List<Exercise>> exercisesCompletableFuture = workoutViewModel.getAllExercisesForAUser(user.getUid());
         exercisesCompletableFuture.thenApply(exercises -> {
@@ -71,16 +82,14 @@ public class AddWorkoutFragment extends Fragment {
             }
             return exercises;
         }).thenAccept(result -> {
-
+            //Setup adapter for spinner
+            ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
+                    getContext(),
+                    android.R.layout.simple_spinner_item,
+                    yourExercises);
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            binding.spinnerExercise.setAdapter(spinnerAdapter);
         });
-
-        //Setup adapter for spinner
-        ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
-                getContext(),
-                android.R.layout.simple_spinner_item,
-                yourExercises);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerExercise.setAdapter(spinnerAdapter);
 
         // Grab Exercise when button is clicked
         binding.buttonAddExercise.setOnClickListener(new View.OnClickListener() {
@@ -91,29 +100,41 @@ public class AddWorkoutFragment extends Fragment {
                     Toast.makeText(getContext(), "Please select an exercise", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (binding.editTextSets.getText() == null) {
+                if (binding.editTextSets.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Please set number of sets", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (binding.editTextReps.getText() == null) {
+                if (binding.editTextReps.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Please set number of reps", Toast.LENGTH_LONG).show();
                     return;
                 }
                 Exercise exercise = (Exercise) binding.spinnerExercise.getSelectedItem();
                 addedExercises.add(exercise);
-                yourExercises.remove(exercise); // A workout routine can only have particular exercise.
+                yourExercises.remove(exercise); // A workout routine can only have one particular exercise.
                 templates.add(new ExerciseTemplate(exercise, Integer.parseInt(binding.editTextSets.getText().toString()),
                         Integer.parseInt(binding.editTextReps.getText().toString()), binding.editTextNotes.getText().toString()));
+
+
+
+                // Re-apply adapters - spinner and recyclerview
+                ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
+                        getContext(),
+                        android.R.layout.simple_spinner_item,
+                        yourExercises);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.spinnerExercise.setAdapter(spinnerAdapter);
+
+                //Attach RecyclerView to adapter
+                AddWorkoutViewAdapter recyclerViewAdapter = new AddWorkoutViewAdapter();
+                binding.recyclerView.setAdapter(recyclerViewAdapter);
+                recyclerViewAdapter.setTemplates(templates);
             }
         });
 
         // Set layout manager for recyclerview
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //Attach RecyclerView to adapter
-        AddWorkoutViewAdapter recyclerViewAdapter = new AddWorkoutViewAdapter();
-        binding.recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerViewAdapter.setTemplates(templates);
+
 
         // TODO: Handle delete button click event
 
@@ -131,6 +152,7 @@ public class AddWorkoutFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
 
     //Template class to pass data into AddWorkoutViewAdapter
