@@ -78,8 +78,9 @@ public class ExerciseFragment extends Fragment {
         // Initialize view model
         exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
 
-        // Display exercises for that user only
+        // Get exercises for that user only
         allExercises = exerciseViewModel.getAllExercisesForAUser(user.getUid());
+        List<Exercise> test = new ArrayList<>();
 
         // set layout manager for recycler view
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -98,6 +99,7 @@ public class ExerciseFragment extends Fragment {
 
                 // Update RecyclerView adapter and display it again.
                 adapter.setExercises(exercises);
+
             }
         });
 

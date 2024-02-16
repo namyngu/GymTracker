@@ -2,6 +2,8 @@ package com.example.gymtracker.entity;
 
 import androidx.room.Entity;
 
+import java.util.List;
+
 @Entity(tableName = "training_plan",
         primaryKeys = {"setNum","workoutId","exerciseId"})
 public class TrainingPlan {
@@ -40,6 +42,26 @@ public class TrainingPlan {
 
     public String getNotes() {
         return notes;
+    }
+
+    public Exercise getExercise(List<Exercise> exercises) {
+        Exercise exercise = null;
+        for (Exercise tmp : exercises) {
+            if (tmp.getExerciseId() == exerciseId) {
+                exercise = tmp;
+            }
+        }
+        return exercise;
+    }
+
+    public Workout getWorkout(List<Workout> workouts) {
+        Workout workout = null;
+        for (Workout tmp : workouts) {
+            if (tmp.getWorkoutId() == workoutId) {
+                workout = tmp;
+            }
+        }
+        return workout;
     }
 
 

@@ -70,8 +70,17 @@ public class WorkoutRepository {
         return exercises;
     }
 
-    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
-        return exerciseDao.getAllExercisesForAUser(userId);
+    public LiveData<List<Exercise>> getLiveDataExercisesForAUser(String userId) {
+        return exerciseDao.getLiveDataExercisesForAUser(userId);
+    }
+
+    public CompletableFuture<List<Exercise>> getAllExercisesForAUser(String userId) {
+        return CompletableFuture.supplyAsync(new Supplier<List<Exercise>>() {
+            @Override
+            public List<Exercise> get() {
+                return exerciseDao.getAllExercisesForAUser(userId);
+            }
+        }, GymTrackerDB.databaseWriteExecutor);
     }
 
     public LiveData<List<TrainingPlan>> getAllTrainingPlans(String userId) {

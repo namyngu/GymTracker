@@ -61,7 +61,7 @@ public class ExerciseRepository {
     }
 
     public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
-        allExercisesForAUser = exerciseDao.getAllExercisesForAUser(userId);
+        allExercisesForAUser = exerciseDao.getLiveDataExercisesForAUser(userId);
         return allExercisesForAUser;
     }
 }

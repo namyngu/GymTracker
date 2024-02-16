@@ -1,5 +1,6 @@
 package com.example.gymtracker.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -18,7 +19,6 @@ public class Exercise {
     private String category;
     private boolean visibility;
     private String userId;
-
 
     @Ignore
     // Constructors
@@ -102,5 +102,11 @@ public class Exercise {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name + " - " + equipment;
     }
 }

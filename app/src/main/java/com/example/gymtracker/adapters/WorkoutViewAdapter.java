@@ -38,17 +38,12 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         Workout currentWorkout = workouts.get(position);
 
         // Get all training plans and exercises for current workout
-        List<TrainingPlan> trainingPlansForCurrentWorkout = new ArrayList<>();
-        List<Exercise> exercisesForCurrentWorkout = new ArrayList<>();
+        List<TrainingPlan> currentTrainingPlans = new ArrayList<>();
+        List<Exercise> currentExercises = new ArrayList<>();
         for (TrainingPlan tmp : trainingPlans) {
             if (tmp.getWorkoutId() == currentWorkout.getWorkoutId()) {
-                trainingPlansForCurrentWorkout.add(tmp);
-            }
-            // Get all exercises for current workout
-            for (Exercise tmpExercise : exercises) {
-                if (tmpExercise.getExerciseId() == tmp.getExerciseId()) {
-                    exercisesForCurrentWorkout.add(tmpExercise);
-                }
+                currentTrainingPlans.add(tmp);
+                currentExercises.add(tmp.getExercise(exercises));
             }
         }
 
@@ -56,7 +51,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         holder.binding.textViewWorkoutName.setText(currentWorkout.getName());
 
         // Get first exercise and training plan
-        Exercise exercise1 = exercisesForCurrentWorkout.get(0);
+        Exercise exercise1 = currentExercises.get(0);
         TrainingPlan plan1 = findTrainingPlanFromExercise(exercise1);
 
         holder.binding.textViewExerciseName1.setText(exercise1.getName());
@@ -66,7 +61,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         holder.binding.textViewVolume1.setText(str1);
 
         // if there's only 1 exercise in a workout - turn hide exercise 2 and 3
-        if (exercisesForCurrentWorkout.size() == 1) {
+        if (currentExercises.size() == 1) {
             holder.binding.textViewExerciseName2.setVisibility(View.INVISIBLE);
             holder.binding.divider2.setVisibility(View.INVISIBLE);
             holder.binding.textViewEquipment2.setVisibility(View.INVISIBLE);
@@ -81,7 +76,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         }
 
         // get 2nd exercise and training plan
-        Exercise exercise2 = exercisesForCurrentWorkout.get(1);
+        Exercise exercise2 = currentExercises.get(1);
         TrainingPlan plan2 = findTrainingPlanFromExercise(exercise2);
 
         // Display exercise 2
@@ -92,7 +87,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         holder.binding.textViewVolume2.setText(str2);
 
         // if there's 2 exercises in a workout - hide exercise 3
-        if (exercisesForCurrentWorkout.size() == 2){
+        if (currentExercises.size() == 2){
             holder.binding.textViewExerciseName3.setVisibility(View.INVISIBLE);
             holder.binding.divider3.setVisibility(View.INVISIBLE);
             holder.binding.textViewEquipment3.setVisibility(View.INVISIBLE);
@@ -102,7 +97,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         }
 
         // get 2rd exercise and training plan
-        Exercise exercise3 = exercisesForCurrentWorkout.get(2);
+        Exercise exercise3 = currentExercises.get(2);
         TrainingPlan plan3 = findTrainingPlanFromExercise(exercise3);
 
         // Display exercise 3

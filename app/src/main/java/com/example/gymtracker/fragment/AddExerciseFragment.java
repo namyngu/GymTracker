@@ -37,7 +37,7 @@ public class AddExerciseFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    int buttonId;
+    private int buttonId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,10 +59,6 @@ public class AddExerciseFragment extends Fragment {
                 R.array.muscles_array,      // Add list of possible muscles for spinner
                 android.R.layout.simple_spinner_item
         );
-
-
-
-
 
         // Specify the layout to use when the list of choices appears.
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -317,7 +313,6 @@ public class AddExerciseFragment extends Fragment {
     }
 
     // Display save icon
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.save_menu, menu);

@@ -39,7 +39,11 @@ public class WorkoutViewModel extends AndroidViewModel {
         return workoutRepo.getAllExercisesForAWorkout(workout);
     }
 
-    public LiveData<List<Exercise>> getAllExercisesForAUser(String userId) {
+    public LiveData<List<Exercise>> getLiveDataExercisesForAUser(String userId) {
+        return workoutRepo.getLiveDataExercisesForAUser(userId);
+    }
+
+    public CompletableFuture<List<Exercise>> getAllExercisesForAUser(String userId) {
         return workoutRepo.getAllExercisesForAUser(userId);
     }
 

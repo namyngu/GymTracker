@@ -12,7 +12,7 @@
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -31,9 +31,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        tools:layout_editor_absoluteX="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +43,7 @@
 
             <Spinner
                 android:id="@+id/spinner_exercise"
-                android:layout_width="236dp"
+                android:layout_width="220dp"
                 android:layout_height="match_parent"
                 android:spinnerMode="dropdown" />
 
@@ -51,15 +52,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+ Add exercise"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
 
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/divider8p"
             android:orientation="horizontal"
-            android:showDividers="middle"
-            android:divider="@drawable/divider8p">
+            android:showDividers="middle">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="180dp"
@@ -91,6 +94,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_instructions"
             android:layout_width="match_parent"

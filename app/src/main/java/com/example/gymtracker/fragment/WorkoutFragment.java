@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gymtracker.R;
 import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.adapters.WorkoutViewAdapter;
 import com.example.gymtracker.databinding.FragmentWorkoutBinding;
@@ -60,7 +62,7 @@ public class WorkoutFragment extends Fragment {
         // Initialize View Model
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
         allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(userId);
-        allUserExercises = workoutViewModel.getAllExercisesForAUser(userId);
+        allUserExercises = workoutViewModel.getLiveDataExercisesForAUser(userId);
         allUserTrainingPlans = workoutViewModel.getAllTrainingPlans(userId);
 
         // Set layout manager for recycler view
@@ -69,6 +71,14 @@ public class WorkoutFragment extends Fragment {
         // Attach RecyclerView to adapter
         adapter = new WorkoutViewAdapter();
         binding.recyclerView.setAdapter(adapter);
+
+        // Floating action button click event
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.navigate_to_addWorkoutFragment);
+            }
+        });
 
         allUserWorkouts.observe(getViewLifecycleOwner(), new Observer<List<Workout>>() {
             @Override

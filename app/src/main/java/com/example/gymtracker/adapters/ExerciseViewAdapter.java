@@ -60,18 +60,18 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
             this.binding = binding;
         }
 
-        // Handle click events for every card
-        public ExerciseViewHolder(View v) {
-            super(v);
-            view = v;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // item is clicked
-                    //TODO: navigate to an exercise page to update exercises and delete them.
-                }
-            });
-        }
+//        // Handle click events for every card
+//        public ExerciseViewHolder(View v) {
+//            super(v);
+//            view = v;
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    // item is clicked
+//                    //TODO: navigate to an exercise page to update exercises and delete them.
+//                }
+//            });
+//        }
     }
 
     public void setExercises(List<Exercise> exercises) {
