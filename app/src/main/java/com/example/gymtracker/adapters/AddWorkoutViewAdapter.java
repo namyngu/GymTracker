@@ -57,4 +57,5 @@ public class AddWorkoutViewAdapter extends RecyclerView.Adapter<AddWorkoutViewAd
         this.templates = templates;
         notifyDataSetChanged();
     }
+
 }

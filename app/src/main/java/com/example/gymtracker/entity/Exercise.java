@@ -11,7 +11,7 @@ import java.util.List;
 @Entity(tableName = "exercise_table")
 public class Exercise {
     @PrimaryKey(autoGenerate = true)
-    private int exerciseId;
+    private long exerciseId;
     private String name;
     private String notes;
     private String muscle;
@@ -47,7 +47,7 @@ public class Exercise {
     public String getUserId() {
         return userId;
     }
-    public int getExerciseId() {
+    public long getExerciseId() {
         return exerciseId;
     }
 
@@ -84,7 +84,7 @@ public class Exercise {
         this.notes = notes;
     }
 
-    public void setExerciseId(int exerciseId) {
+    public void setExerciseId(long exerciseId) {
         this.exerciseId = exerciseId;
     }
 

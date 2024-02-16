@@ -1,21 +1,34 @@
 package com.example.gymtracker.entity;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 
 import java.util.List;
 
 @Entity(tableName = "training_plan",
-        primaryKeys = {"setNum","workoutId","exerciseId"})
+        primaryKeys = {"setNum","workoutId","exerciseId"},
+        foreignKeys = @ForeignKey(
+                entity = Workout.class,
+                parentColumns = "workoutId",
+                childColumns = "workoutId"),
+        indices = @Index("workoutId"))
 public class TrainingPlan {
     private int setNum;
-    private int workoutId;
-    private int exerciseId;
+    private long workoutId;
+    private long exerciseId;
     private int reps;
     private String notes;
 
-
+    @Ignore
     // Constructor
-    public TrainingPlan(int setNum, int workoutId, int exerciseId, int reps, String notes) {
+    public TrainingPlan(int setNum, int reps, String notes) {
+        this.setNum = setNum;
+        this.reps = reps;
+        this.notes = notes;
+    }
+    public TrainingPlan(int setNum, long workoutId, long exerciseId, int reps, String notes) {
         this.setNum = setNum;
         this.workoutId = workoutId;
         this.exerciseId = exerciseId;
@@ -28,11 +41,11 @@ public class TrainingPlan {
         return setNum;
     }
 
-    public int getWorkoutId() {
+    public long getWorkoutId() {
         return workoutId;
     }
 
-    public int getExerciseId() {
+    public long getExerciseId() {
         return exerciseId;
     }
 
@@ -76,5 +89,13 @@ public class TrainingPlan {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setWorkoutId(long workoutId) {
+        this.workoutId = workoutId;
+    }
+
+    public void setExerciseId(long exerciseId) {
+        this.exerciseId = exerciseId;
     }
 }

@@ -2,6 +2,7 @@ package com.example.gymtracker.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -9,20 +10,28 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.gymtracker.R;
 import com.example.gymtracker.adapters.AddWorkoutViewAdapter;
 import com.example.gymtracker.databinding.FragmentAddWorkoutBinding;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -31,6 +40,10 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AddWorkoutFragment extends Fragment {
     FragmentAddWorkoutBinding binding;
     WorkoutViewModel workoutViewModel;
+
+    private List<Exercise> addedExercises = new ArrayList<>();
+    private List<ExerciseTemplate> templates = new ArrayList<>();
+    private List<Exercise> yourExercises = new ArrayList<>();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseUser user = auth.getCurrentUser();
 
@@ -54,10 +67,6 @@ public class AddWorkoutFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         assert activity != null;
         Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Add Workout");
-
-        List<Exercise> addedExercises = new ArrayList<>();
-        List<ExerciseTemplate> templates = new ArrayList<>();
-        List<Exercise> yourExercises = new ArrayList<>();
 
 //        yourExercises.observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
 //            @Override
@@ -91,7 +100,10 @@ public class AddWorkoutFragment extends Fragment {
             binding.spinnerExercise.setAdapter(spinnerAdapter);
         });
 
-        // Grab Exercise when button is clicked
+        // Set layout manager for recyclerview
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Handle add exercise button click event
         binding.buttonAddExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,11 +112,11 @@ public class AddWorkoutFragment extends Fragment {
                     Toast.makeText(getContext(), "Please select an exercise", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (binding.editTextSets.getText().toString().isEmpty()) {
+                if (binding.editTextSets.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getContext(), "Please set number of sets", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (binding.editTextReps.getText().toString().isEmpty()) {
+                if (binding.editTextReps.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getContext(), "Please set number of reps", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -113,8 +125,6 @@ public class AddWorkoutFragment extends Fragment {
                 yourExercises.remove(exercise); // A workout routine can only have one particular exercise.
                 templates.add(new ExerciseTemplate(exercise, Integer.parseInt(binding.editTextSets.getText().toString()),
                         Integer.parseInt(binding.editTextReps.getText().toString()), binding.editTextNotes.getText().toString()));
-
-
 
                 // Re-apply adapters - spinner and recyclerview
                 ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
@@ -131,12 +141,10 @@ public class AddWorkoutFragment extends Fragment {
             }
         });
 
-        // Set layout manager for recyclerview
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
-        // TODO: Handle delete button click event
+        // TODO: Handle delete exercise button click event (make a clear button a lot easier!)
+        // Remove exercise from addedExercises and templates
+        // Add exercise back to yourExercise
+        // Re-apply adapters
 
 
 
@@ -151,6 +159,16 @@ public class AddWorkoutFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void saveWorkout() {
+        if (binding.editTextName.getText().toString().trim().isEmpty()) {
+            Toast.makeText(getContext(), "Workout name cannot be empty", Toast.LENGTH_SHORT).show();
+        }
+        String name = binding.editTextName.getText().toString().trim();
+
+        Workout workout = new Workout(name, user.getUid(), Calendar.getInstance().getTime());
+
     }
 
 
@@ -201,5 +219,23 @@ public class AddWorkoutFragment extends Fragment {
         public void setNotes(String notes) {
             this.notes = notes;
         }
+    }
+
+    // Display save icon
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.save_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d("onOptionsItemSelected","yes");
+        if (item.getItemId() == R.id.save_exercise) {
+            saveWorkout();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

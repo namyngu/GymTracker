@@ -8,4 +8,5 @@
     <color name="lightgrey">#D6D6D6</color>
     <color name="brightblue">#002AFF</color>
     <color name="verylightgrey">#F2ECF6</color>
+    <color name="transparent">#00000000</color>
 </resources>

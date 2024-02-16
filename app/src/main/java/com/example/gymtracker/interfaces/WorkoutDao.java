@@ -18,7 +18,7 @@ import java.util.List;
 public interface WorkoutDao {
 
     @Insert
-    public void insert(Workout workout);
+    public long insert(Workout workout);
 
     @Update
     public void update(Workout workout);
@@ -50,7 +50,7 @@ public interface WorkoutDao {
     // Get all exercises that belong to a workout
     @Transaction
     @Query("SELECT * FROM workout_table WHERE workoutId = :workoutId")
-    public List<WorkoutWithExercises> getWorkoutWithExercises(int workoutId);
+    public List<WorkoutWithExercises> getWorkoutWithExercises(long workoutId);
 
     @Transaction
     @Query("SELECT * FROM training_plan " +

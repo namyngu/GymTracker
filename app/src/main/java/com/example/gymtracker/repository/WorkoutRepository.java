@@ -100,7 +100,7 @@ public class WorkoutRepository {
         GymTrackerDB.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                workoutDao.insert(workout);
+               workoutDao.insert(workout);
             }
         });
     }

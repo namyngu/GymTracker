@@ -14,9 +14,8 @@ import java.util.List;
 @Entity(tableName = "workout_table")
 public class Workout {
     @PrimaryKey(autoGenerate = true)
-    private int workoutId;
+    private long workoutId;
     private String name;
-
     private String userId;
     private Date date;
 
@@ -27,7 +26,7 @@ public class Workout {
     }
 
     // Getter methods
-    public int getWorkoutId() {
+    public long getWorkoutId() {
         return workoutId;
     }
 
@@ -46,7 +45,7 @@ public class Workout {
 
     //Setter methods
 
-    public void setWorkoutId(int workoutId) {
+    public void setWorkoutId(long workoutId) {
         this.workoutId = workoutId;
     }
 
