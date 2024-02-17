@@ -3,11 +3,14 @@ package com.example.gymtracker.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -28,6 +31,7 @@ import com.example.gymtracker.entity.Exercise;
 import com.example.gymtracker.entity.TrainingPlan;
 import com.example.gymtracker.entity.Workout;
 import com.example.gymtracker.viewmodel.WorkoutViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,6 +47,7 @@ public class AddWorkoutFragment extends Fragment {
     FragmentAddWorkoutBinding binding;
     WorkoutViewModel workoutViewModel;
 
+    private AppCompatActivity activity = (AppCompatActivity) getActivity();
     private List<Exercise> addedExercises = new ArrayList<>();
     private List<ExerciseTemplate> templates = new ArrayList<>();
     private List<Exercise> yourExercises = new ArrayList<>();
@@ -69,20 +74,6 @@ public class AddWorkoutFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         assert activity != null;
         Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Add Workout");
-
-//        yourExercises.observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
-//            @Override
-//            public void onChanged(List<Exercise> exercises) {
-//                //Setup adapter for spinner
-//                ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
-//                        getContext(),
-//                        android.R.layout.simple_spinner_item,
-//                        exercises);
-//                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                binding.spinnerExercise.setAdapter(spinnerAdapter);
-//            }
-//        });
-
 
         CompletableFuture<List<Exercise>> exercisesCompletableFuture = workoutViewModel.getAllExercisesForAUser(user.getUid());
         exercisesCompletableFuture.thenApply(exercises -> {
@@ -123,30 +114,21 @@ public class AddWorkoutFragment extends Fragment {
                     return;
                 }
                 Exercise exercise = (Exercise) binding.spinnerExercise.getSelectedItem();
-                addedExercises.add(exercise);
                 yourExercises.remove(exercise); // A workout routine can only have one particular exercise.
+                addedExercises.add(exercise);
                 templates.add(new ExerciseTemplate(exercise, Integer.parseInt(binding.editTextSets.getText().toString()),
                         Integer.parseInt(binding.editTextReps.getText().toString()), binding.editTextNotes.getText().toString()));
 
-                // Re-apply adapters - spinner and recyclerview
-                ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
-                        getContext(),
-                        android.R.layout.simple_spinner_item,
-                        yourExercises);
-                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                binding.spinnerExercise.setAdapter(spinnerAdapter);
-
-                //Attach RecyclerView to adapter
-                AddWorkoutViewAdapter recyclerViewAdapter = new AddWorkoutViewAdapter();
-                binding.recyclerView.setAdapter(recyclerViewAdapter);
-                recyclerViewAdapter.setTemplates(templates);
+                reApplyAdapters();
             }
         });
 
-        // TODO: Handle delete exercise button click event (easier to make a clear_all button!)
-        // Remove exercise from addedExercises and templates
-        // Add exercise back to yourExercise
-        // Re-apply adapters
+        binding.buttonClearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearExercises();
+            }
+        });
 
         return view;
     }
@@ -156,9 +138,54 @@ public class AddWorkoutFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Hide Bottom Navigation Bar
+        BottomNavigationView navBar = requireActivity().findViewById(R.id.bottomNavigationView);
+        navBar.setVisibility(View.INVISIBLE);
+
+        // Show bottom navbar once we exit the screen
+        NavController navController = Navigation.findNavController(requireView());      // This will only work once onCreateView method returns a view - otherwise null pointer exception.
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if (navDestination.getId() != R.id.nav_add_workout_fragment) {
+                    navBar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    // Add exercise back to yourExercise
+    // Remove exercise from addedExercises and templates
+    // Re-apply adapters
+    public void clearExercises() {
+        yourExercises.addAll(addedExercises);
+        addedExercises.clear();
+        templates.clear();
+        reApplyAdapters();
+    }
+
+    public void reApplyAdapters() {
+        // Re-apply adapters - spinner and recyclerview
+        ArrayAdapter<Exercise> spinnerAdapter = new ArrayAdapter<Exercise>(
+                getContext(),
+                android.R.layout.simple_spinner_item,
+                yourExercises);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerExercise.setAdapter(spinnerAdapter);
+
+        //Attach RecyclerView to adapter
+        AddWorkoutViewAdapter recyclerViewAdapter = new AddWorkoutViewAdapter();
+        binding.recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.setTemplates(templates);
     }
 
     public void saveWorkout() {
@@ -179,8 +206,6 @@ public class AddWorkoutFragment extends Fragment {
 
         Navigation.findNavController(getView()).navigate(R.id.navigate_to_WorkoutFragment);
     }
-
-
 
     //Template class to pass data into AddWorkoutViewAdapter
     public static class ExerciseTemplate {

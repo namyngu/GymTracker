@@ -75,6 +75,14 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
+        // Button click event
+        binding.buttonSearchExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.navigate_to_search_exercise_fragment);
+            }
+        });
+
         // Initialize view model
         exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
 

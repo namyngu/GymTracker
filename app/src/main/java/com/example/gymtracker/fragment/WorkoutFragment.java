@@ -58,7 +58,7 @@ public class WorkoutFragment extends Fragment {
         Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Workout Routines");
 
 
-
+        //TODO: wrap this in completable future
         // Initialize View Model
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
         allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(userId);

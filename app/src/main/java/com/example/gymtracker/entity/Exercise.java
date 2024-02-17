@@ -5,17 +5,31 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "exercise_table")
 public class Exercise {
+
     @PrimaryKey(autoGenerate = true)
     private long exerciseId;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("instructions")
     private String notes;
+
+    @SerializedName("muscle")
     private String muscle;
+
+    @SerializedName("equipment")
     private String equipment;
+
+    @SerializedName("type")
     private String category;
     private boolean visibility;
     private String userId;

@@ -326,7 +326,6 @@ public class AddExerciseFragment extends Fragment {
             saveExercise();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

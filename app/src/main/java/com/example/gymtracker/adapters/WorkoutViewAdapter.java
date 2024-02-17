@@ -51,6 +51,14 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         holder.binding.textViewWorkoutName.setText(currentWorkout.getName());
 
         // Get first exercise and training plan
+        if (currentExercises.size() == 0) {
+            holder.binding.llRow1.setVisibility(View.GONE);
+            holder.binding.llRow2.setVisibility(View.GONE);
+            holder.binding.llRow3.setVisibility(View.GONE);
+            holder.binding.textViewEllipsis.setVisibility(View.GONE);
+            return;
+        }
+
         Exercise exercise1 = currentExercises.get(0);
         TrainingPlan plan1 = findTrainingPlanFromExercise(exercise1);
 
@@ -62,16 +70,9 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
         // if there's only 1 exercise in a workout - turn hide exercise 2 and 3
         if (currentExercises.size() == 1) {
-            holder.binding.textViewExerciseName2.setVisibility(View.INVISIBLE);
-            holder.binding.divider2.setVisibility(View.INVISIBLE);
-            holder.binding.textViewEquipment2.setVisibility(View.INVISIBLE);
-            holder.binding.textViewVolume2.setVisibility(View.INVISIBLE);
-
-            holder.binding.textViewExerciseName3.setVisibility(View.INVISIBLE);
-            holder.binding.divider3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewEquipment3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewVolume3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewEllipsis.setVisibility(View.INVISIBLE);
+            holder.binding.llRow2.setVisibility(View.GONE);
+            holder.binding.llRow3.setVisibility(View.GONE);
+            holder.binding.textViewEllipsis.setVisibility(View.GONE);
             return;
         }
 
@@ -88,12 +89,14 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
 
         // if there's 2 exercises in a workout - hide exercise 3
         if (currentExercises.size() == 2){
-            holder.binding.textViewExerciseName3.setVisibility(View.INVISIBLE);
-            holder.binding.divider3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewEquipment3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewVolume3.setVisibility(View.INVISIBLE);
-            holder.binding.textViewEllipsis.setVisibility(View.INVISIBLE);
+            holder.binding.llRow3.setVisibility(View.GONE);
+            holder.binding.textViewEllipsis.setVisibility(View.GONE);
             return;
+        }
+
+        // Hide ellipsis for 3 or less exercises.
+        if (currentExercises.size() <= 3) {
+            holder.binding.textViewEllipsis.setVisibility(View.GONE);
         }
 
         // get 2rd exercise and training plan
