@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +15,32 @@ import android.widget.ProgressBar;
 
 import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.FragmentReportBinding;
+import com.example.gymtracker.entity.DailyStep;
+import com.example.gymtracker.entity.Weight;
+import com.example.gymtracker.viewmodel.ReportViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 public class ReportFragment extends Fragment {
 
     FragmentReportBinding binding;
     ArrayList barArrayList;
+
+    List<DailyStep> dailySteps = new ArrayList<>();
+    List<Weight> weights = new ArrayList<>();
+    ReportViewModel viewModel;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
 
     @Override
@@ -41,10 +55,12 @@ public class ReportFragment extends Fragment {
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View view  = binding.getRoot();
 
+        initParams();
         getData();
         initBarChart();
 
-        // Inflate the layout for this fragment
+
+
         return view;
     }
 
@@ -68,5 +84,21 @@ public class ReportFragment extends Fragment {
         //setting text size
         barDataSet.setValueTextSize(16f);
         binding.barChart.getDescription().setEnabled(true);
+    }
+
+    private void initParams() {
+        viewModel = new ViewModelProvider(requireActivity()).get(ReportViewModel.class);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        CompletableFuture<List<DailyStep>> stepsFuture = viewModel.getAllSteps(user.getUid());
+        stepsFuture.thenAccept(result -> {
+           dailySteps = result;
+        });
+
+        CompletableFuture<List<Weight>> weightsFuture = viewModel.getAllWeights(user.getUid());
+        weightsFuture.thenAccept(result -> {
+            weights = result;
+        });
     }
 }

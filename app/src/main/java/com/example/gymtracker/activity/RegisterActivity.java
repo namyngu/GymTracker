@@ -12,12 +12,17 @@ import android.widget.Toast;
 
 import com.example.gymtracker.databinding.ActivityRegisterBinding;
 import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.Weight;
 import com.example.gymtracker.viewmodel.RegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
@@ -95,10 +100,20 @@ public class RegisterActivity extends AppCompatActivity {
                                     User user = new User(currentUser.getUid(),
                                             binding.tiDisplayName.getText().toString().trim(),
                                             age,
-                                            weight,
                                             "operator");
                                     // Add user to database
                                     viewModel.insert(user);
+
+                                    //Create weight object
+                                    float tmp = Integer.parseInt(binding.tiWeight.getText().toString().trim());
+                                    // Get current date - dd-MMM-yyyy
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+                                    sdf.setTimeZone(TimeZone.getDefault());
+                                    String currentDate = sdf.format(Calendar.getInstance().getTime());
+
+                                    Weight weight = new Weight(currentUser.getUid(), tmp, currentDate);
+                                    // Add weight to db
+                                    viewModel.insert(weight);
 
                                     binding.progressBar.setVisibility(View.GONE);
                                     Toast.makeText(RegisterActivity.this, "Register Success",
@@ -109,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     // Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(RegisterActivity.this, "ERROR: Registration failed",
                                             Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                         });

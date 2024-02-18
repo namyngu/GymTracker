@@ -24,8 +24,8 @@ public interface DailyStepDao {
     @Delete
     public void delete (DailyStep steps);
 
-    @Query("SELECT * FROM daily_step_table ORDER BY userId")
-    public LiveData<List<DailyStep>> getAllDailySteps();
+    @Query("SELECT * FROM daily_step_table WHERE daily_step_table.userId =:userId")
+    public List<DailyStep> getAllDailySteps(String userId);
 
     // Date format should be dd-MMM-yyyy
     @Query("SELECT * FROM daily_step_table WHERE date == :date")

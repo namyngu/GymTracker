@@ -22,8 +22,6 @@ public class WorkoutViewModel extends AndroidViewModel {
     public WorkoutViewModel (@NonNull Application application) {
         super(application);
         workoutRepo = new WorkoutRepository(application);
-
-
     }
 
     public CompletableFuture<Workout> findByIdFuture(final int workoutId) {

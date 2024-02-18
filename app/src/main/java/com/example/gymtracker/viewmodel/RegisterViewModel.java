@@ -6,35 +6,39 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.Weight;
 import com.example.gymtracker.repository.ProfileRepository;
 
 import java.util.concurrent.CompletableFuture;
 
 public class RegisterViewModel extends AndroidViewModel {
 
-    private ProfileRepository userRepo;
+    private ProfileRepository profileRepo;
     private User user;
     private String userId;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
-        userRepo = new ProfileRepository(application);
+        profileRepo = new ProfileRepository(application);
     }
 
     public CompletableFuture<User> findByIdFuture(final String userId) {
-        return userRepo.findUserByIdFuture(userId);
+        return profileRepo.findUserByIdFuture(userId);
     }
 
     public void insert(User user) {
-        userRepo.insert(user);
+        profileRepo.insert(user);
+    }
+    public void insert(Weight weight) {
+        profileRepo.insert(weight);
     }
 
     public void update(User user) {
-        userRepo.update(user);
+        profileRepo.update(user);
     }
 
     public void delete(User user) {
-        userRepo.delete(user);
+        profileRepo.delete(user);
     }
 
 }

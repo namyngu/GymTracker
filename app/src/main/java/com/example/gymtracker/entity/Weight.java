@@ -13,10 +13,10 @@ public class Weight {
     @NonNull
     private float weight;
     @NonNull
-    private Date date;
+    private String date;
 
     // Constructor
-    public Weight(String userId, float weight, Date date) {
+    public Weight(String userId, float weight, String date) {
         this.userId = userId;
         this.weight = weight;
         this.date = date;
@@ -31,7 +31,8 @@ public class Weight {
         return weight;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
+
 }

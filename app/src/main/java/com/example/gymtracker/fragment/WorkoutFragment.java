@@ -59,7 +59,6 @@ public class WorkoutFragment extends Fragment {
 
 
         //TODO: wrap this in completable future
-        // Initialize View Model
         workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
         allUserWorkouts = workoutViewModel.getAllWorkoutsForAUser(userId);
         allUserExercises = workoutViewModel.getLiveDataExercisesForAUser(userId);

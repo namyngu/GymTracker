@@ -23,6 +23,6 @@ public interface WeightDao {
     @Delete
     public void delete (Weight weight);
 
-    @Query("SELECT * FROM weight_table ORDER BY userId")
-    public LiveData<List<Weight>> getAllWeights();
+    @Query("SELECT * FROM weight_table WHERE weight_table.userId =:userId")
+    public List<Weight> getAllWeights(String userId);
 }
