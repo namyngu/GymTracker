@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Dao
 public interface DailyStepDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(DailyStep steps);
 
     @Update
@@ -25,5 +26,9 @@ public interface DailyStepDao {
 
     @Query("SELECT * FROM daily_step_table ORDER BY userId")
     public LiveData<List<DailyStep>> getAllDailySteps();
+
+    // Date format should be dd-MMM-yyyy
+    @Query("SELECT * FROM daily_step_table WHERE date == :date")
+    public DailyStep findDailyStep(String date);
 
 }

@@ -22,7 +22,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public CompletableFuture<User> findByIdFuture(final String userId) {
-        return userRepo.findByIdFuture(userId);
+        return userRepo.findUserByIdFuture(userId);
     }
 
     public void insert(User user) {

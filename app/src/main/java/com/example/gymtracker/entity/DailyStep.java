@@ -13,10 +13,10 @@ public class DailyStep {
     @NonNull
     private int steps;
     @NonNull
-    private Date date;
+    private String date;
 
     // Constructor
-    public DailyStep(String userId, int steps, Date date) {
+    public DailyStep(String userId, int steps, String date) {
         this.userId = userId;
         this.steps = steps;
         this.date = date;
@@ -31,7 +31,16 @@ public class DailyStep {
         return steps;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
+    }
+
+    // Setter methods
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
+
+    public void setDate(@NonNull String date) {
+        this.date = date;
     }
 }

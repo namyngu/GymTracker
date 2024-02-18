@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.gymtracker.entity.DailyStep;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.repository.ProfileRepository;
 
@@ -12,23 +13,43 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProfileViewModel extends AndroidViewModel {
 
-    private ProfileRepository userRepo;
+    private ProfileRepository profileRepo;
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
-        userRepo = new ProfileRepository(application);
+        profileRepo = new ProfileRepository(application);
+    }
+
+    public CompletableFuture<DailyStep> findDailyStep (String date) {
+        return profileRepo.findDailyStep(date);
     }
 
     public CompletableFuture<User> findByIdFuture(final String userId) {
-        return userRepo.findByIdFuture(userId);
+        return profileRepo.findUserByIdFuture(userId);
+    }
+
+    public void insert(User user) {
+        profileRepo.insert(user);
+    }
+
+    public void insert(DailyStep dailyStep) {
+        profileRepo.insert(dailyStep);
+    }
+
+    public void update(DailyStep dailyStep) {
+        profileRepo.update(dailyStep);
     }
 
     public void update(User user) {
-        userRepo.update(user);
+        profileRepo.update(user);
     }
 
     public void delete(User user) {
-        userRepo.delete(user);
+        profileRepo.delete(user);
+    }
+
+    public void delete(DailyStep dailyStep) {
+        profileRepo.delete(dailyStep);
     }
 
 }

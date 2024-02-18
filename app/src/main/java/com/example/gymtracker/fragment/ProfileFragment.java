@@ -1,10 +1,13 @@
 package com.example.gymtracker.fragment;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+import static androidx.core.content.ContextCompat.registerReceiver;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,14 +39,18 @@ import android.widget.Toast;
 import com.example.gymtracker.R;
 import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.databinding.FragmentProfileBinding;
+import com.example.gymtracker.entity.DailyStep;
 import com.example.gymtracker.entity.User;
 import com.example.gymtracker.viewmodel.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -56,8 +63,8 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     ProfileViewModel viewModel;
     User user;
 
+    private BroadcastReceiver endOfDayReceiver;
     private static final int PERMISSION_REQUEST_BODY_SENSORS = 1001;
-
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private int stepCount = 0;
@@ -107,7 +114,6 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         binding.progressBar.setMax(stepCountTarget);
-
         binding.textviewStepCount.setText("Step Goal " + stepCountTarget);
 
         if (stepCounterSensor == null) {
@@ -137,6 +143,27 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
                 }
             }
         });
+
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (stepCounterSensor == null) {
+                    Toast.makeText(getContext(), "Error: Step sensor not detected - saving current step count", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                saveDailySteps(stepCount);
+            }
+        });
+
+        endOfDayReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                saveDailySteps(stepCount);
+            }
+        };
+        registerReceiver(getContext(),endOfDayReceiver, new IntentFilter(Intent.ACTION_DATE_CHANGED),ContextCompat.RECEIVER_NOT_EXPORTED);
+
 
         return view;
     }
@@ -190,6 +217,18 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
             sensorManager.unregisterListener(this);
             timerHandler.removeCallbacks(timerRunnable);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            getContext().unregisterReceiver(endOfDayReceiver);
+        }
+        catch (Exception exception) {
+            Log.i("ProfileFragment","Receiver was not registered to unregister - everything is fine");
+        }
+
     }
 
     public void initializeParams() {
@@ -258,6 +297,54 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
+    }
+
+    // Method to save steps each day
+    public void saveDailySteps(int steps) {
+
+        // Get current date - dd-MMM-yyyy
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentDate = sdf.format(Calendar.getInstance().getTime());
+
+        DailyStep dailyStep = new DailyStep(user.getUserId(), steps, currentDate);
+        viewModel.insert(dailyStep);
+    }
+
+    // Method to retrieve steps for the day
+    public DailyStep getDailySteps(String date) {
+        
+        CompletableFuture<DailyStep> dailyStepCompletableFuture = viewModel.findDailyStep(date);
+        dailyStepCompletableFuture.thenApply(dailyStep -> {
+            if (dailyStep == null) {
+                Toast.makeText(getActivity(), "No daily steps found!", Toast.LENGTH_LONG).show();
+                return null;
+            }
+            else {
+                return dailyStep;
+            }
+        });
+        Toast.makeText(getActivity(), "This shouldn't happen, no daily steps found!", Toast.LENGTH_SHORT).show();
+        return null;
+    }
+
+    // Method to detect end of day and save steps
+    private void detectEndOfDayAndSaveSteps() {
+        // TODO: Implement logic to detect end of day, using AlarmManager and  BroadcastReceiver
+
+
+
+
+        // Get current date - dd-MMM-yyyy
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentDate = sdf.format(Calendar.getInstance().getTime());
+
+        // When end of day is detected, save steps
+        DailyStep dailySteps = getDailySteps(currentDate); // Get total steps for the day
+        saveDailySteps(dailySteps.getSteps());
 
     }
+
+    
 }
