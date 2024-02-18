@@ -160,6 +160,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
             @Override
             public void onReceive(Context context, Intent intent) {
                 saveDailySteps(stepCount);
+                stepCount = 0;
             }
         };
         registerReceiver(getContext(),endOfDayReceiver, new IntentFilter(Intent.ACTION_DATE_CHANGED),ContextCompat.RECEIVER_NOT_EXPORTED);
