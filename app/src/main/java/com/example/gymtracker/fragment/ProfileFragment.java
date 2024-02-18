@@ -21,6 +21,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.util.Log;
@@ -30,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.gymtracker.R;
 import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.databinding.FragmentProfileBinding;
 import com.example.gymtracker.entity.User;
@@ -74,6 +78,8 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
             int seconds = (int)(milis/1000);
             int min = seconds / 60;
 
+
+
             binding.textviewTime.setText(String.format(Locale.getDefault(), "Time: %02d:%02d", min, seconds));
             timerHandler.postDelayed(this, 1000);
         }
@@ -111,6 +117,11 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         binding.pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (stepCounterSensor == null) {
+                    Toast.makeText(getContext(), "Error: Sensor not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (isPaused) {
                     isPaused = false;
                     binding.pauseButton.setText("Pause");
