@@ -1,5 +1,7 @@
 package com.example.gymtracker.fragment;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,12 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.FragmentReportBinding;
 
 
 public class ReportFragment extends Fragment {
+
     FragmentReportBinding binding;
 
 

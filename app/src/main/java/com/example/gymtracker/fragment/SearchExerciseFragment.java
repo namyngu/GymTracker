@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.gymtracker.R;
+import com.example.gymtracker.adapters.ExerciseViewAdapter;
+import com.example.gymtracker.adapters.SearchExerciseViewAdapter;
 import com.example.gymtracker.api.RetrofitClient;
 import com.example.gymtracker.api.RetrofitInterface;
 import com.example.gymtracker.databinding.FragmentSearchExerciseBinding;
@@ -40,6 +43,7 @@ public class SearchExerciseFragment extends Fragment {
     FragmentSearchExerciseBinding binding;
     private String keyword;
     private String filter;
+    private SearchExerciseViewAdapter adapter;
     private RetrofitInterface retrofitInterface;
     private List<Exercise> exercises = new ArrayList<>();
 
@@ -54,6 +58,7 @@ public class SearchExerciseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSearchExerciseBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
 
         applyAdapters();
 
@@ -72,39 +77,76 @@ public class SearchExerciseFragment extends Fragment {
                     Toast.makeText(activity, "Must enter keywords", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                Call<List<Exercise>> callAsync = retrofitInterface.getExercises(filter,keyword);
-                //makes an async request & invokes callback methods when the response returns
-                callAsync.enqueue(new Callback<List<Exercise>>() {
-                    @Override
-                    public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
-                        if (response.isSuccessful()) {
-                            exercises = response.body();
-
-                            //TODO display exercises in recyclerview
-                            Objects.requireNonNull(activity.getSupportActionBar()).setTitle(exercises.get(0).getName());
-                        }
-                        else {
-                            Log.i("SearchExerciseFragment","Response failed");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Exercise>> call, Throwable t) {
-                        Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("SearchExerciseFragment",t.getMessage());
-                    }
-                });
+                callApi(filter);
             }
         });
 
+//        Navigation.findNavController(view).navigate(R.id.navigate_to_addExerciseFragment,);
 
 
+        return view;
+    }
 
+    public void setupAdapter() {
+        adapter = new SearchExerciseViewAdapter();
+        binding.recyclerView.setAdapter(adapter);
+        adapter.setExercises(exercises);
+    }
 
+    public void callApi(String filter) {
+        if (filter.equals("muscle")) {
+            Call<List<Exercise>> callAsync = retrofitInterface.searchMuscles(keyword);
+            //makes an async request & invokes callback methods when the response returns
+            callAsync.enqueue(new Callback<List<Exercise>>() {
+                @Override
+                public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+                    if (response.isSuccessful()) {
+                        exercises = response.body();
+                        if (exercises.size() == 0) {
+                            Toast.makeText(getActivity(), "No results found", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        setupAdapter();
+                    }
+                    else {
+                        Log.i("SearchExerciseFragment","Response failed");
+                        Toast.makeText(getActivity(), "Response failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-
-        return binding.getRoot();
+                @Override
+                public void onFailure(Call<List<Exercise>> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("SearchExerciseFragment",t.getMessage());
+                }
+            });
+        }
+        else if (filter.equals("name")) {
+            Call<List<Exercise>> callAsync = retrofitInterface.searchName(keyword);
+            //makes an async request & invokes callback methods when the response returns
+            callAsync.enqueue(new Callback<List<Exercise>>() {
+                @Override
+                public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+                    if (response.isSuccessful()) {
+                        exercises = response.body();
+                        if (exercises.size() == 0) {
+                            Toast.makeText(getActivity(), "No results found", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        setupAdapter();
+                    }
+                    else {
+                        Log.i("SearchExerciseFragment","Response failed");
+                        Toast.makeText(getActivity(), "Response failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<List<Exercise>> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("SearchExerciseFragment",t.getMessage());
+                }
+            });
+        }
     }
 
     @Override
@@ -113,7 +155,7 @@ public class SearchExerciseFragment extends Fragment {
 
         // Hide Bottom Navigation Bar
         BottomNavigationView navBar = requireActivity().findViewById(R.id.bottomNavigationView);
-        navBar.setVisibility(View.INVISIBLE);
+        navBar.setVisibility(View.GONE);
 
         // Show bottom navbar once we exit the screen
         NavController navController = Navigation.findNavController(requireView());      // This will only work once onCreateView method returns a view - otherwise null pointer exception.
@@ -143,6 +185,9 @@ public class SearchExerciseFragment extends Fragment {
 
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerFilter.setAdapter(spinnerAdapter);
+
+        // Set layout manager for recyclerview
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 

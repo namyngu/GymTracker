@@ -143,7 +143,7 @@ public class AddWorkoutFragment extends Fragment {
 
         // Hide Bottom Navigation Bar
         BottomNavigationView navBar = requireActivity().findViewById(R.id.bottomNavigationView);
-        navBar.setVisibility(View.INVISIBLE);
+        navBar.setVisibility(View.GONE);
 
         // Show bottom navbar once we exit the screen
         NavController navController = Navigation.findNavController(requireView());      // This will only work once onCreateView method returns a view - otherwise null pointer exception.
