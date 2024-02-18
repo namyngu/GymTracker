@@ -116,7 +116,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         binding.progressBar.setMax(stepCountTarget);
-        binding.textviewStepCount.setText("Step Goal " + stepCountTarget);
+        binding.textviewStepCount.setText("Steps: " + stepCount);
 
         if (stepCounterSensor == null) {
             binding.textviewStepCount.setText("Step counter not found");
@@ -210,14 +210,14 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     public void onResume() {
         super.onResume();
 
-//        if (stepCounterSensor != null) {
-//            sensorManager.registerListener( this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
-//
+        if (stepCounterSensor != null) {
+            sensorManager.registerListener( this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
 //            timerHandler.postDelayed(timerRunnable,0);
-//        }
-//        else{
-//            Toast.makeText(getContext(), "Step sensor not available", Toast.LENGTH_SHORT).show();
-//        }
+        }
+        else{
+            Toast.makeText(getContext(), "Step sensor not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -263,19 +263,16 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
+
         CompletableFuture<User> userCompletableFuture = viewModel.findByIdFuture(firebaseUser.getUid());
+        userCompletableFuture.thenAccept(result -> {
+            user = result;
+        });
 
-        try {
-            user = userCompletableFuture.get();
-            // Change actionbar Title
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-            assert activity != null;
-            Objects.requireNonNull(activity.getSupportActionBar()).setTitle(user.getDisplayName());
-        }
-        catch (Exception e){
-            Log.e("ERROR: ", "Could not find user");
-        }
-
+        // Change actionbar Title
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        assert activity != null;
+        Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Your Profile");
     }
 
     public void getPermissions(){

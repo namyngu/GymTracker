@@ -25,6 +25,10 @@ public class ProfileViewModel extends AndroidViewModel {
         return profileRepo.findDailyStep(date);
     }
 
+    public User findById(String userId) {
+        return profileRepo.findById(userId);
+    }
+
     public CompletableFuture<User> findByIdFuture(final String userId) {
         return profileRepo.findUserByIdFuture(userId);
     }

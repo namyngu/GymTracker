@@ -94,6 +94,10 @@ public class ProfileRepository {
         });
     }
 
+    public User findById(String userId) {
+        return userDao.findById(userId);
+    }
+
     public CompletableFuture<DailyStep> findDailyStep(String date) {
         DailyStep dailyStep = null;
         return CompletableFuture.supplyAsync(new Supplier<DailyStep>() {
