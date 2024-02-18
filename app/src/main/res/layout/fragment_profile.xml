@@ -35,7 +35,8 @@
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <ImageView
             android:layout_width="50dp"
@@ -45,9 +46,18 @@
         <TextView
             android:id="@+id/textview_stepCount"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:text="Steps: 0"
-            android:padding="20dp"
+            android:padding="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/textview_distance"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Distance: 0"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_gravity="center" />
         
@@ -57,40 +67,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_step"/>
 
-        <TextView
-            android:id="@+id/textview_distance"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Distance: 0"
-            android:padding="20dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_gravity="center" />
+
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_time"/>
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/ic_time"/>-->
 
-        <TextView
-            android:id="@+id/textview_time"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Time: 0"
-            android:padding="20dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_gravity="center" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/textview_time"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:text="Time: 0"-->
+<!--            android:padding="20dp"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--            android:layout_gravity="center" />-->
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,14 +97,14 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/pause_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:text="Pause"
-            android:onClick="onPauseButtonClicked"/>
+<!--        <Button-->
+<!--            android:id="@+id/pause_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="Pause"-->
+<!--            android:onClick="onPauseButtonClicked"/>-->
 
         <Button
             android:id="@+id/save_button"
@@ -116,6 +115,43 @@
             android:text="Save Steps"
             android:onClick="onPauseButtonClicked"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Weight: "
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="80"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="kg"/>
+
+        <Button
+            android:id="@+id/btn_update_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textColor="@color/brightblue"
+            android:layout_marginLeft="10dp"
+            android:background="@color/transparent"/>
+    </LinearLayout>
+
 
 
 

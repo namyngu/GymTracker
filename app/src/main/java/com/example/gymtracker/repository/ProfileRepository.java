@@ -22,6 +22,7 @@ public class ProfileRepository {
         GymTrackerDB db = GymTrackerDB.getInstance(application);
 
         userDao = db.userDao();
+        dailyStepDao = db.dailyStepDao();
     }
 
 

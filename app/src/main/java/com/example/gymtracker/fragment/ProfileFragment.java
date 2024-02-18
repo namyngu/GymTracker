@@ -31,9 +31,11 @@ import androidx.navigation.Navigation;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.gymtracker.R;
@@ -68,29 +70,28 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
     private int stepCount = 0;
-    private ProgressBar progressBar;
     private boolean isPaused = false;
     private long timePaused = 0;
     private float stepLengthInMeters = 0.762f;
     private long startTime;
     private int stepCountTarget = 6000;
 
-    private Handler timerHandler = new Handler();
+//    private Handler timerHandler = new Handler();
 
-    private Runnable timerRunnable = new Runnable() {
-        @Override
-        public void run() {
-
-            long milis = System.currentTimeMillis() - startTime;
-            int seconds = (int)(milis/1000);
-            int min = seconds / 60;
-
-
-
-            binding.textviewTime.setText(String.format(Locale.getDefault(), "Time: %02d:%02d", min, seconds));
-            timerHandler.postDelayed(this, 1000);
-        }
-    };
+//    private Runnable timerRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//
+//            long milis = System.currentTimeMillis() - startTime;
+//            int seconds = (int)(milis/1000);
+//            int min = seconds / 60;
+//
+//
+//
+//            binding.textviewTime.setText(String.format(Locale.getDefault(), "Time: %02d:%02d", min, seconds));
+//            timerHandler.postDelayed(this, 1000);
+//        }
+//    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,39 +121,39 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
             binding.textviewStepCount.setText("Step counter not found");
         }
 
-        binding.pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (stepCounterSensor == null) {
-                    Toast.makeText(getContext(), "Error: Sensor not available", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (isPaused) {
-                    isPaused = false;
-                    binding.pauseButton.setText("Pause");
-                    startTime = System.currentTimeMillis()-timePaused;
-                    timerHandler.postDelayed(timerRunnable,0);
-                }
-                else {
-                    isPaused = true;
-                    binding.pauseButton.setText("Resume");
-
-                    timerHandler.removeCallbacks(timerRunnable);
-                    timePaused = System.currentTimeMillis()-startTime;
-                }
-            }
-        });
-
+//        binding.pauseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (stepCounterSensor == null) {
+//                    Toast.makeText(getContext(), "Error: Sensor not available", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (isPaused) {
+//                    isPaused = false;
+//                    binding.pauseButton.setText("Pause");
+//                    startTime = System.currentTimeMillis()-timePaused;
+//                    timerHandler.postDelayed(timerRunnable,0);
+//                }
+//                else {
+//                    isPaused = true;
+//                    binding.pauseButton.setText("Resume");
+//
+//                    timerHandler.removeCallbacks(timerRunnable);
+//                    timePaused = System.currentTimeMillis()-startTime;
+//                }
+//            }
+//        });
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (stepCounterSensor == null) {
-                    Toast.makeText(getContext(), "Error: Step sensor not detected - saving current step count", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Step sensor not detected - saving current step count", Toast.LENGTH_LONG).show();
+                    saveDailySteps(stepCount);
                     return;
                 }
-
                 saveDailySteps(stepCount);
+                Toast.makeText(getContext(), "Steps saved", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -165,13 +166,14 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         };
         registerReceiver(getContext(),endOfDayReceiver, new IntentFilter(Intent.ACTION_DATE_CHANGED),ContextCompat.RECEIVER_NOT_EXPORTED);
 
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,14 +189,14 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     public void onResume() {
         super.onResume();
 
-        if (stepCounterSensor != null) {
-            sensorManager.registerListener( this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-            timerHandler.postDelayed(timerRunnable,0);
-        }
-        else{
-            Toast.makeText(getContext(), "Step sensor not available", Toast.LENGTH_SHORT).show();
-        }
+//        if (stepCounterSensor != null) {
+//            sensorManager.registerListener( this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//
+//            timerHandler.postDelayed(timerRunnable,0);
+//        }
+//        else{
+//            Toast.makeText(getContext(), "Step sensor not available", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override
@@ -203,7 +205,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
 
         if (stepCounterSensor != null) {
             sensorManager.unregisterListener(this);
-            timerHandler.removeCallbacks(timerRunnable);
+//            timerHandler.removeCallbacks(timerRunnable);
         }
     }
 
@@ -216,7 +218,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
 
         if (stepCounterSensor != null) {
             sensorManager.unregisterListener(this);
-            timerHandler.removeCallbacks(timerRunnable);
+//            timerHandler.removeCallbacks(timerRunnable);
         }
     }
 
@@ -300,21 +302,9 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     public void onAccuracyChanged(Sensor sensor, int i) {
     }
 
-    // Method to save steps each day
-    public void saveDailySteps(int steps) {
-
-        // Get current date - dd-MMM-yyyy
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        sdf.setTimeZone(TimeZone.getDefault());
-        String currentDate = sdf.format(Calendar.getInstance().getTime());
-
-        DailyStep dailyStep = new DailyStep(user.getUserId(), steps, currentDate);
-        viewModel.insert(dailyStep);
-    }
-
     // Method to retrieve steps for the day
     public DailyStep getDailySteps(String date) {
-        
+
         CompletableFuture<DailyStep> dailyStepCompletableFuture = viewModel.findDailyStep(date);
         dailyStepCompletableFuture.thenApply(dailyStep -> {
             if (dailyStep == null) {
@@ -345,6 +335,58 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         DailyStep dailySteps = getDailySteps(currentDate); // Get total steps for the day
         saveDailySteps(dailySteps.getSteps());
 
+    }
+
+    // Method to save steps each day
+    public void saveDailySteps(int steps) {
+
+        // Get current date - dd-MMM-yyyy
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentDate = sdf.format(Calendar.getInstance().getTime());
+
+        DailyStep dailyStep = new DailyStep(user.getUserId(), steps, currentDate);
+
+        //Check if dailySteps today already exists
+        CompletableFuture<DailyStep> checkStepsFuture = viewModel.findDailyStep(currentDate);
+        checkStepsFuture.thenApply(checkSteps -> {
+            if (checkSteps != null) {
+                Log.i("ProfileFragment","Daily Steps already exist - adding on steps");
+                int totalSteps = dailyStep.getSteps() + checkSteps.getSteps();
+                DailyStep newStep = new DailyStep(user.getUserId(), totalSteps, currentDate);
+                viewModel.update(newStep);
+            }
+            else {
+                viewModel.insert(dailyStep);
+            }
+            return true;
+        });
+
+        stepCount = 0;
+    }
+
+    public void saveWeight (float weight) {
+
+    }
+
+
+
+    // Display save icon
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d("onOptionsItemSelected","yes");
+        if (item.getItemId() == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            goToLoginActivity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     
