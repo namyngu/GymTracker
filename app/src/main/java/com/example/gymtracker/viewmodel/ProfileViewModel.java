@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.gymtracker.entity.DailyStep;
 import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.Weight;
 import com.example.gymtracker.repository.ProfileRepository;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,6 +35,9 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public void insert(DailyStep dailyStep) {
         profileRepo.insert(dailyStep);
+    }
+    public void insert(Weight weight) {
+        profileRepo.insert(weight);
     }
 
     public void update(DailyStep dailyStep) {

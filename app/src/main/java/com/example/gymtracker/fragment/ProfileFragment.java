@@ -43,6 +43,7 @@ import com.example.gymtracker.activity.LoginActivity;
 import com.example.gymtracker.databinding.FragmentProfileBinding;
 import com.example.gymtracker.entity.DailyStep;
 import com.example.gymtracker.entity.User;
+import com.example.gymtracker.entity.Weight;
 import com.example.gymtracker.viewmodel.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -144,6 +145,26 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
 //                }
 //            }
 //        });
+
+        binding.btnUpdateWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strWeight = binding.weight.getText().toString().trim();
+                if (strWeight.isEmpty()) {
+                    Toast.makeText(getContext(), "Please enter your weight", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                float weight = Float.parseFloat(strWeight);
+                if (weight <= 0) {
+                    Toast.makeText(getContext(), "Weight must be greater than 0", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                saveWeight(weight);
+                Toast.makeText(getContext(), "Your weight is saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -325,11 +346,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
 
 
 
-
-        // Get current date - dd-MMM-yyyy
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        sdf.setTimeZone(TimeZone.getDefault());
-        String currentDate = sdf.format(Calendar.getInstance().getTime());
+        String currentDate = getCurrentDate();
 
         // When end of day is detected, save steps
         DailyStep dailySteps = getDailySteps(currentDate); // Get total steps for the day
@@ -341,9 +358,7 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     public void saveDailySteps(int steps) {
 
         // Get current date - dd-MMM-yyyy
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        sdf.setTimeZone(TimeZone.getDefault());
-        String currentDate = sdf.format(Calendar.getInstance().getTime());
+        String currentDate = getCurrentDate();
 
         DailyStep dailyStep = new DailyStep(user.getUserId(), steps, currentDate);
 
@@ -366,28 +381,18 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
     }
 
     public void saveWeight (float weight) {
-
+        String currentDate = getCurrentDate();
+        Weight tmpWeight = new Weight(user.getUserId(), weight, currentDate);
+        viewModel.insert(tmpWeight);
     }
 
+    //Returns the current date in dd-MMM-yyyy
+    public String getCurrentDate() {
+        // Get current date - dd-MMM-yyyy
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentDate = sdf.format(Calendar.getInstance().getTime());
 
-
-    // Display save icon
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.logout_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        return currentDate;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d("onOptionsItemSelected","yes");
-        if (item.getItemId() == R.id.logout) {
-            FirebaseAuth.getInstance().signOut();
-            goToLoginActivity();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    
 }
