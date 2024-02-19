@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -36,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -64,9 +66,16 @@ public class ReportFragment extends Fragment {
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View view  = binding.getRoot();
 
+        // Change action bar title
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        assert activity != null;
+        Objects.requireNonNull(activity.getSupportActionBar()).setTitle("Daily Steps - Last 7 Days");
+
         initParams();
         getDataLast7Days();
         initBarChart();
+
+
 
 
 
