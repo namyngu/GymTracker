@@ -1,15 +1,13 @@
 package com.example.gymtracker.adapters;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.ItemExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
 

@@ -75,10 +75,6 @@ public class ReportFragment extends Fragment {
         getDataLast7Days();
         initBarChart();
 
-
-
-
-
         return view;
     }
 
@@ -90,7 +86,7 @@ public class ReportFragment extends Fragment {
         // Get the last 7 daily steps (equivalent to 7 days)
         for (DailyStep step : dailySteps) {
             if (dailySteps.size() - count <= 7) {
-                barArrayList.add(new BarEntry(count - 1, step.getSteps()));     // first index at 0 for x-axis.
+                barArrayList.add(new BarEntry((count + 7 - dailySteps.size()), step.getSteps()));     // first index at 0 for x-axis.
                 // get labels for x-axis (Day-Month)
                 String[] str = step.getDate().split("-");
                 String dayMonth = str[0] + "-" + str[1];
