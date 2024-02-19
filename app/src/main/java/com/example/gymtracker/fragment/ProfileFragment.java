@@ -363,9 +363,8 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
         CompletableFuture<DailyStep> checkStepsFuture = viewModel.findDailyStep(currentDate);
         checkStepsFuture.thenApply(checkSteps -> {
             if (checkSteps != null) {
-                Log.i("ProfileFragment","Daily Steps already exist - adding on steps");
-                int totalSteps = dailyStep.getSteps() + checkSteps.getSteps();
-                DailyStep newStep = new DailyStep(user.getUserId(), totalSteps, currentDate);
+                Log.i("ProfileFragment","Daily Steps already exist update steps");
+                DailyStep newStep = new DailyStep(user.getUserId(), dailyStep.getSteps(), currentDate);
                 viewModel.update(newStep);
             }
             else {

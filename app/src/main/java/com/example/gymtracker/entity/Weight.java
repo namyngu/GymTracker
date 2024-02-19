@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import java.util.Date;
 
 @Entity(tableName = "weight_table",
-        primaryKeys = {"userId", "weight", "date"})
+        primaryKeys = {"userId", "date"})
 public class Weight {
     @NonNull
     private String userId;

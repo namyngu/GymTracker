@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import java.util.Date;
 
 @Entity(tableName = "daily_step_table",
-        primaryKeys = {"userId", "steps", "date"})
+        primaryKeys = {"userId", "date"})
 public class DailyStep {
     @NonNull
     private String userId;
