@@ -28,6 +28,7 @@ import com.example.gymtracker.api.RetrofitClient;
 import com.example.gymtracker.api.RetrofitInterface;
 import com.example.gymtracker.databinding.FragmentSearchExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.interfaces.SelectListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -39,13 +40,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SearchExerciseFragment extends Fragment {
+public class SearchExerciseFragment extends Fragment implements SelectListener {
     FragmentSearchExerciseBinding binding;
     private String keyword;
     private String filter;
     private SearchExerciseViewAdapter adapter;
     private RetrofitInterface retrofitInterface;
     private List<Exercise> exercises = new ArrayList<>();
+
 
 
 
@@ -88,7 +90,7 @@ public class SearchExerciseFragment extends Fragment {
     }
 
     public void setupAdapter() {
-        adapter = new SearchExerciseViewAdapter();
+        adapter = new SearchExerciseViewAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         adapter.setExercises(exercises);
     }
@@ -191,4 +193,8 @@ public class SearchExerciseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClicked(Exercise exercise) {
+        Toast.makeText(getContext(), exercise.getName(), Toast.LENGTH_SHORT).show();
+    }
 }

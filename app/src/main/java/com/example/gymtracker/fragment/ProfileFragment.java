@@ -122,30 +122,6 @@ public class ProfileFragment extends Fragment implements SensorEventListener{
             binding.textviewStepCount.setText("Step counter not found");
         }
 
-//        binding.pauseButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (stepCounterSensor == null) {
-//                    Toast.makeText(getContext(), "Error: Sensor not available", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (isPaused) {
-//                    isPaused = false;
-//                    binding.pauseButton.setText("Pause");
-//                    startTime = System.currentTimeMillis()-timePaused;
-//                    timerHandler.postDelayed(timerRunnable,0);
-//                }
-//                else {
-//                    isPaused = true;
-//                    binding.pauseButton.setText("Resume");
-//
-//                    timerHandler.removeCallbacks(timerRunnable);
-//                    timePaused = System.currentTimeMillis()-startTime;
-//                }
-//            }
-//        });
-
         binding.btnUpdateWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

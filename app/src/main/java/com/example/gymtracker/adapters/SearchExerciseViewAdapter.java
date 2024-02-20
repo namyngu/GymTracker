@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymtracker.databinding.ItemExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
+import com.example.gymtracker.interfaces.SelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,10 @@ import java.util.List;
 public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerciseViewAdapter.SearchExerciseViewHolder> {
 
     private List<Exercise> exercises = new ArrayList<>();
+    private SelectListener listener;
 
-    public SearchExerciseViewAdapter() {
-
+    public SearchExerciseViewAdapter(SelectListener listener) {
+        this.listener = listener;
     }
 
     // ViewHolder contains the layout for each item in the list
@@ -40,7 +42,12 @@ public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerci
         holder.binding.textViewEquipment.setText(currentExercise.getEquipment());
         holder.binding.textViewMuscle.setText(currentExercise.getMuscle());
 
-
+        holder.binding.exerciseContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClicked(currentExercise);
+            }
+        });
     }
 
     @Override
@@ -60,6 +67,7 @@ public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerci
         public SearchExerciseViewHolder(ItemExerciseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
         }
 
 //        // Handle click events for every card
