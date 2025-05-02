@@ -94,7 +94,7 @@ public class ExerciseFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Attach RecyclerView to adapter
-        adapter = new ExerciseViewAdapter();
+        adapter = new ExerciseViewAdapter(this.getContext());
         binding.recyclerView.setAdapter(adapter);
 
 

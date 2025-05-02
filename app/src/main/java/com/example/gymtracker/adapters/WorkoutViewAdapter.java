@@ -68,7 +68,7 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
         String str1 = plan1.getSetNum() + "x" + plan1.getReps() ;
         holder.binding.textViewVolume1.setText(str1);
 
-        // if there's only 1 exercise in a workout - turn hide exercise 2 and 3
+        // if there's only 1 exercise in a workout - hide exercise 2 and 3
         if (currentExercises.size() == 1) {
             holder.binding.llRow2.setVisibility(View.GONE);
             holder.binding.llRow3.setVisibility(View.GONE);
@@ -119,7 +119,6 @@ public class WorkoutViewAdapter extends RecyclerView.Adapter<WorkoutViewAdapter.
     public static class WorkoutViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
         private ItemWorkoutBinding binding;
-        public View view;
 
         // Constructor
         public WorkoutViewHolder(ItemWorkoutBinding binding) {

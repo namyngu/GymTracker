@@ -1,5 +1,6 @@
 package com.example.gymtracker.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,11 @@ import java.util.List;
 
 public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapter.ExerciseViewHolder> {
 
+    private Context context;
     private List<Exercise> exercises = new ArrayList<>();
 
-    public ExerciseViewAdapter() {
-
+    public ExerciseViewAdapter(Context context) {
+        this.context = context;
     }
 
     // ViewHolder contains the layout for each item in the list
@@ -27,7 +29,10 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemExerciseBinding binding = ItemExerciseBinding
-                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
+                .inflate(LayoutInflater
+                .from(parent.getContext()),
+                parent,
+                false);
 
         return new ExerciseViewHolder(binding);
     }
@@ -36,9 +41,9 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
-        holder.binding.textViewExerciseName.setText(currentExercise.getName());
-        holder.binding.textViewEquipment.setText(currentExercise.getEquipment());
-        holder.binding.textViewMuscle.setText(currentExercise.getMuscle());
+        holder.itemExerciseBinding.textViewExerciseName.setText(currentExercise.getName());
+        holder.itemExerciseBinding.textViewEquipment.setText(currentExercise.getEquipment());
+        holder.itemExerciseBinding.textViewMuscle.setText(currentExercise.getMuscle());
     }
 
     @Override
@@ -50,28 +55,16 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     // Remember the ViewHolder class holds each item in the RecyclerView
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
-        private ItemExerciseBinding binding;
+        private ItemExerciseBinding itemExerciseBinding;
         public View view;
         public Exercise currentExercise;
 
         // Constructor - ExerciseItemBinding binding is the card itself (single item)
         public ExerciseViewHolder(ItemExerciseBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
+            this.itemExerciseBinding = binding;
         }
 
-//        // Handle click events for every card
-//        public ExerciseViewHolder(View v) {
-//            super(v);
-//            view = v;
-//            view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    // item is clicked
-//                    //TODO: navigate to an exercise page to update exercises and delete them.
-//                }
-//            });
-//        }
     }
 
     public void setExercises(List<Exercise> exercises) {

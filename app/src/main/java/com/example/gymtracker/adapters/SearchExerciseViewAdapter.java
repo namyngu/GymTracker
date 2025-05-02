@@ -1,16 +1,19 @@
 package com.example.gymtracker.adapters;
 
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gymtracker.R;
 import com.example.gymtracker.databinding.ItemExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.interfaces.SelectListener;
+import com.example.gymtracker.fragment.SearchExerciseFragment;
+import com.example.gymtracker.fragment.SearchExerciseFragmentDirections;
+import com.example.gymtracker.interfaces.ItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,9 @@ import java.util.List;
 public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerciseViewAdapter.SearchExerciseViewHolder> {
 
     private List<Exercise> exercises = new ArrayList<>();
-    private SelectListener listener;
+    private ItemClickListener listener;
 
-    public SearchExerciseViewAdapter(SelectListener listener) {
+    public SearchExerciseViewAdapter(ItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -28,8 +31,11 @@ public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerci
     @NonNull
     @Override
     public SearchExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemExerciseBinding binding = ItemExerciseBinding
-                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemExerciseBinding binding =
+                ItemExerciseBinding.inflate(
+                        LayoutInflater.from(parent.getContext()),
+                        parent,
+                        false);
 
         return new SearchExerciseViewHolder(binding);
     }
@@ -38,14 +44,14 @@ public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerci
     @Override
     public void onBindViewHolder(@NonNull SearchExerciseViewHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
-        holder.binding.textViewExerciseName.setText(currentExercise.getName());
-        holder.binding.textViewEquipment.setText(currentExercise.getEquipment());
-        holder.binding.textViewMuscle.setText(currentExercise.getMuscle());
+        holder.itemExerciseBinding.textViewExerciseName.setText(currentExercise.getName());
+        holder.itemExerciseBinding.textViewEquipment.setText(currentExercise.getEquipment());
+        holder.itemExerciseBinding.textViewMuscle.setText(currentExercise.getMuscle());
 
-        holder.binding.exerciseContainer.setOnClickListener(new View.OnClickListener() {
+        holder.itemExerciseBinding.exerciseContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClicked(currentExercise);
+                listener.onItemClicked(currentExercise, holder.itemView);
             }
         });
     }
@@ -59,29 +65,15 @@ public class SearchExerciseViewAdapter extends RecyclerView.Adapter<SearchExerci
     // Remember the ViewHolder class holds each item in the RecyclerView
     public static class SearchExerciseViewHolder extends RecyclerView.ViewHolder {
         // ViewBinding
-        private ItemExerciseBinding binding;
-        public View view;
-        public Exercise currentExercise;
+        private ItemExerciseBinding itemExerciseBinding;
 
         // Constructor - ExerciseItemBinding binding is the card itself (single item)
         public SearchExerciseViewHolder(ItemExerciseBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
+            this.itemExerciseBinding = binding;
+
 
         }
-
-//        // Handle click events for every card
-//        public SearchExerciseViewHolder(View v) {
-//            super(v);
-//            view = v;
-//            view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    // item is clicked
-//                    Navigation.findNavController(view).navigate(R.id.action_nav_search_exercise_fragment_to_nav_exercise_fragment);
-//                }
-//            });
-//        }
     }
 
     public void setExercises(List<Exercise> exercises) {

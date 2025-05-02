@@ -13,22 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.gymtracker.R;
-import com.example.gymtracker.adapters.ExerciseViewAdapter;
 import com.example.gymtracker.adapters.SearchExerciseViewAdapter;
 import com.example.gymtracker.api.RetrofitClient;
 import com.example.gymtracker.api.RetrofitInterface;
 import com.example.gymtracker.databinding.FragmentSearchExerciseBinding;
 import com.example.gymtracker.entity.Exercise;
-import com.example.gymtracker.interfaces.SelectListener;
+import com.example.gymtracker.interfaces.ItemClickListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -40,7 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SearchExerciseFragment extends Fragment implements SelectListener {
+public class SearchExerciseFragment extends Fragment implements ItemClickListener {
     FragmentSearchExerciseBinding binding;
     private String keyword;
     private String filter;
@@ -169,6 +165,7 @@ public class SearchExerciseFragment extends Fragment implements SelectListener {
                 }
             }
         });
+
     }
 
     public void setupActionBar() {
@@ -194,7 +191,17 @@ public class SearchExerciseFragment extends Fragment implements SelectListener {
     }
 
     @Override
-    public void onItemClicked(Exercise exercise) {
-        Toast.makeText(getContext(), exercise.getName(), Toast.LENGTH_SHORT).show();
+    public void onItemClicked(Exercise exercise, View view) {
+
+        SearchExerciseFragmentDirections.ActionNavSearchExerciseFragmentToNavAddExerciseFragment action =
+                SearchExerciseFragmentDirections.actionNavSearchExerciseFragmentToNavAddExerciseFragment(
+                        exercise.getName(),
+                        exercise.getNotes(),
+                        exercise.getMuscle(),
+                        exercise.getEquipment()
+                );
+
+        Navigation.findNavController(view)
+                .navigate(action);
     }
 }

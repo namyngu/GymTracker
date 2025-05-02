@@ -247,6 +247,16 @@ public class AddExerciseFragment extends Fragment {
                 }
             }
         });
+
+        // Get Exercise data
+        String name = AddExerciseFragmentArgs.fromBundle(getArguments()).getName();
+        String notes = AddExerciseFragmentArgs.fromBundle(getArguments()).getNotes();
+        String muscle = AddExerciseFragmentArgs.fromBundle(getArguments()).getMuscle();
+        String equipment = AddExerciseFragmentArgs.fromBundle(getArguments()).getEquipment();
+
+        // Set exercise data to view
+        binding.editTextName.setText(name);
+        binding.editTextNotes.setText(notes);
     }
 
     @Override

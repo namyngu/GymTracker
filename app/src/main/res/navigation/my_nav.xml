@@ -55,6 +55,18 @@
         <action
             android:id="@+id/action_nav_add_exercise_fragment_to_nav_search_exercise_fragment"
             app:destination="@id/nav_search_exercise_fragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="notes"
+            app:argType="string" />
+        <argument
+            android:name="muscle"
+            app:argType="string" />
+        <argument
+            android:name="equipment"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/nav_training_fragment"
