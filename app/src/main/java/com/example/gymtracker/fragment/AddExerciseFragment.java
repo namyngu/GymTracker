@@ -261,8 +261,22 @@ public class AddExerciseFragment extends Fragment {
         binding.editTextName.setText(name);
         binding.editTextNotes.setText(notes);
         // Set default position for spinner
+        if (muscle.equals("lower_back")) {
+            muscle = "Lower Back";
+        }
+        else if (muscle.equals("middle_back")) {
+            muscle = "Middle Back";
+        }
+        else if (!muscle.isEmpty()) {
+            muscle = muscle.substring(0,1).toUpperCase() + muscle.substring(1);
+        }
+
         int defaultPosition = spinnerAdapter.getPosition(muscle);
         binding.spinnerMuscle.setSelection(defaultPosition);
+
+        //TODO: Setup default selection of equipment
+
+
 
 
 

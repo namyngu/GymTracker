@@ -17,7 +17,10 @@ public interface RetrofitInterface {
             "X-Api-Key: " + API_KEY
     })
     @GET("v1/exercises?muscle=")
-    Call<List<Exercise>> searchMuscles(@Query("muscle")String muscle);
+    Call<List<Exercise>> searchMuscles(
+            @Query("muscle")
+            String muscle
+    );
 
     @GET("v1/exercises?name=")
     Call<List<Exercise>> searchName(@Query("name")String name);

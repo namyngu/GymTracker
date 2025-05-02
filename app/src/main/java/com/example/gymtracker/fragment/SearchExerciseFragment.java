@@ -75,6 +75,9 @@ public class SearchExerciseFragment extends Fragment implements ItemClickListene
                     Toast.makeText(activity, "Must enter keywords", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (keyword.equals("middle back")) {keyword = "middle_back";}
+                if (keyword.equals("lower back")) {keyword = "lower_back";}
+
                 callApi(filter);
             }
         });
