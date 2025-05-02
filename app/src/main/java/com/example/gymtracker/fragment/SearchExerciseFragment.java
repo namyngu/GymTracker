@@ -194,12 +194,12 @@ public class SearchExerciseFragment extends Fragment implements ItemClickListene
     public void onItemClicked(Exercise exercise, View view) {
 
         SearchExerciseFragmentDirections.ActionNavSearchExerciseFragmentToNavAddExerciseFragment action =
-                SearchExerciseFragmentDirections.actionNavSearchExerciseFragmentToNavAddExerciseFragment(
-                        exercise.getName(),
-                        exercise.getNotes(),
-                        exercise.getMuscle(),
-                        exercise.getEquipment()
-                );
+                SearchExerciseFragmentDirections.actionNavSearchExerciseFragmentToNavAddExerciseFragment();
+
+        action.setName(exercise.getName());
+        action.setNotes(exercise.getNotes());
+        action.setMuscle(exercise.getMuscle());
+        action.setEquipment(exercise.getEquipment());
 
         Navigation.findNavController(view)
                 .navigate(action);

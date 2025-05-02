@@ -54,15 +54,7 @@ public class AddExerciseFragment extends Fragment {
 
         exerciseViewModel = new ViewModelProvider(requireActivity()).get(ExerciseViewModel.class);
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.muscles_array,      // Add list of possible muscles for spinner
-                android.R.layout.simple_spinner_item
-        );
 
-        // Specify the layout to use when the list of choices appears.
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerMuscle.setAdapter(spinnerAdapter);
 
         // Check other radio button by default
         binding.radioGroupEquipment.check(R.id.radio_button_other);
@@ -233,6 +225,16 @@ public class AddExerciseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.muscles_array,      // Add list of possible muscles for spinner
+                android.R.layout.simple_spinner_item
+        );
+
+        // Specify the layout to use when the list of choices appears.
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerMuscle.setAdapter(spinnerAdapter);
+
         // Hide Bottom Navigation Bar
         BottomNavigationView navBar = requireActivity().findViewById(R.id.bottomNavigationView);
         navBar.setVisibility(View.GONE);
@@ -249,14 +251,22 @@ public class AddExerciseFragment extends Fragment {
         });
 
         // Get Exercise data
-        String name = AddExerciseFragmentArgs.fromBundle(getArguments()).getName();
-        String notes = AddExerciseFragmentArgs.fromBundle(getArguments()).getNotes();
-        String muscle = AddExerciseFragmentArgs.fromBundle(getArguments()).getMuscle();
-        String equipment = AddExerciseFragmentArgs.fromBundle(getArguments()).getEquipment();
+        AddExerciseFragmentArgs args = AddExerciseFragmentArgs.fromBundle(getArguments());
+        String name = args.getName();
+        String notes = args.getNotes();
+        String muscle = args.getMuscle();
+        String equipment = args.getEquipment();
 
         // Set exercise data to view
         binding.editTextName.setText(name);
         binding.editTextNotes.setText(notes);
+        // Set default position for spinner
+        int defaultPosition = spinnerAdapter.getPosition(muscle);
+        binding.spinnerMuscle.setSelection(defaultPosition);
+
+
+
+
     }
 
     @Override
