@@ -17,9 +17,10 @@ The exercises and workout routines are displayed in the app as live data and are
 <img height="585" alt="Training Screen" src="https://github.com/user-attachments/assets/45b115e7-9a54-4650-bd31-462b82c818e1" />
 
 <h3>Report Screen</h3>
-<img height="585" alt="Training Screen" src="https://github.com/user-attachments/assets/5de50edf-5d16-44cf-a6da-a4b4ea80e212" />
+<img height="585" alt="Report Screen" src="https://github.com/user-attachments/assets/9a487338-a240-4e3f-8b74-62d54f5d1ea8" />
 
-<p>You can view the an interactive wireframe for the app here: <a href="https://www.figma.com/proto/yoacDedCaTCJghCIQ5dvWu/GymTracker-Wireframe?t=NZRRDjiHOYnoIIIm-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=4-2&starting-point-node-id=4%3A2">GymTracker</a></p>
+
+<p>You can view the interactive wireframe for the app here: <a href="https://www.figma.com/proto/yoacDedCaTCJghCIQ5dvWu/GymTracker-Wireframe?t=NZRRDjiHOYnoIIIm-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=4-2&starting-point-node-id=4%3A2">GymTracker</a></p>
 
 
 Below is the Entity Relationship Diagram for GymTracker to help visualize the application's database structure.
