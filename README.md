@@ -8,9 +8,16 @@ The exercises and workout routines are displayed in the app as live data and are
 
 <h3>Workouts Screen</h3>
 <p>This is also the home screen</p>
-<img height="585" alt="Home Screen" src="https://github.com/user-attachments/assets/09914544-c4b4-402c-a0bd-f211e34391c4" />
+<img height="585" alt="Workouts Screen(Home Screen)" src="https://github.com/user-attachments/assets/aeea08f3-8758-449b-b025-b16e8897a03b" />
 
+<h3>Exercise Screen</h3>
+<img height="585" alt="Exercise Screen" src="https://github.com/user-attachments/assets/e793b792-4716-4deb-bcae-853408e18f9a" />
 
+<h3>Training Screen</h3>
+<img height="585" alt="Training Screen" src="https://github.com/user-attachments/assets/45b115e7-9a54-4650-bd31-462b82c818e1" />
+
+<h3>Report Screen</h3>
+<img height="585" alt="Training Screen" src="https://github.com/user-attachments/assets/5de50edf-5d16-44cf-a6da-a4b4ea80e212" />
 
 <p>You can view the an interactive wireframe for the app here: <a href="https://www.figma.com/proto/yoacDedCaTCJghCIQ5dvWu/GymTracker-Wireframe?t=NZRRDjiHOYnoIIIm-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=4-2&starting-point-node-id=4%3A2">GymTracker</a></p>
 
