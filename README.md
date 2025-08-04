@@ -4,7 +4,7 @@
 The exercises and workout routines are displayed in the app as live data and are updated automatically when users add new entries.</p>
 
 You can view the an interactive wireframe for the app here:
-<a href="https://www.figma.com/proto/yoacDedCaTCJghCIQ5dvWu/GymTracker-Wireframe?t=EnxOvihZOLIeFemA-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=6-4&starting-point-node-id=4%3A2">GymTracker Wireframe</a>
+<a href="https://www.figma.com/proto/yoacDedCaTCJghCIQ5dvWu/GymTracker-Wireframe?t=NZRRDjiHOYnoIIIm-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=4-2&starting-point-node-id=4%3A2">GymTracker Wireframe</a>
 
 Below is the Entity Relationship Diagram for the app to help visualize the application's database structure.
 <img width="5025" height="2974" alt="GymTracker ERD" src="https://github.com/user-attachments/assets/09e2ac02-740a-4894-bc80-c6ff7c04154c" />
