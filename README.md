@@ -7,8 +7,8 @@ The exercises and workout routines are displayed in the app as live data and are
 <img height="585" alt="Title Screen" src="https://github.com/user-attachments/assets/b5867634-cca0-4148-9828-915c31fc346b" />
 
 <h3>Workouts Screen</h3>
-<p>This is also the home screen</p>
 <img height="585" alt="Workouts Screen(Home Screen)" src="https://github.com/user-attachments/assets/aeea08f3-8758-449b-b025-b16e8897a03b" />
+<p>This is also the home screen</p>
 
 <h3>Exercise Screen</h3>
 <img height="585" alt="Exercise Screen" src="https://github.com/user-attachments/assets/e793b792-4716-4deb-bcae-853408e18f9a" />
